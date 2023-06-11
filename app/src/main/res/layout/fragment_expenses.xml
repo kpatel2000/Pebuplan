@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.tracker.TrackerExpensesFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/timeline_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="May"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/backward_image_expense"
+            android:layout_width="24dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/left_budget"
+            app:layout_constraintBottom_toBottomOf="@id/timeline_expense"
+            app:layout_constraintEnd_toStartOf="@id/timeline_expense"
+            app:layout_constraintTop_toTopOf="@id/timeline_expense"/>
+
+        <ImageView
+            android:id="@+id/forward_image_expense"
+            android:layout_width="24dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/right_budget"
+            app:layout_constraintBottom_toBottomOf="@id/timeline_expense"
+            app:layout_constraintStart_toEndOf="@id/timeline_expense"
+            app:layout_constraintTop_toTopOf="@id/timeline_expense" />
+
+        <com.anychart.AnyChartView
+            android:id="@+id/pieChartExpense"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timeline_expense"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

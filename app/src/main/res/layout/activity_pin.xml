@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PinActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="281dp"
+        android:layout_height="287dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/alojalight"
+        android:text="Set PIN code"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView33"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="310dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="16dp"
+        android:text="Create a PIN to use in place of passwords. Having a PIN makes it easier to sign in to your device, apps and services."
+        app:layout_constraintStart_toStartOf="@+id/pin_Code_box"
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+    <EditText
+        android:id="@+id/pin_Code_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/green_bordered_edit_text"
+        android:gravity="center_vertical"
+        android:hint="Pin Code"
+        android:inputType="numberPassword"
+        android:padding="16dp"
+        android:textColor="@color/green"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+    <EditText
+        android:id="@+id/pin_Code_confirm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/green_bordered_edit_text"
+        android:gravity="center_vertical"
+        android:hint="Pin Code"
+        android:inputType="number|numberPassword"
+        android:padding="16dp"
+        android:textColor="@color/green"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/pin_Code_box"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintStart_toStartOf="@+id/pin_Code_box"
+        app:layout_constraintTop_toBottomOf="@+id/pin_Code_box" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="@+id/pin_Code_confirm"
+        app:layout_constraintStart_toStartOf="@+id/pin_Code_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/pin_Code_confirm" />
+
+    <ImageView
+        android:id="@+id/pin_show"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pin_Code_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pin_Code_box"
+        app:layout_constraintTop_toTopOf="@+id/pin_Code_box"
+        app:srcCompat="@drawable/hide_password" />
+
+    <ImageView
+        android:id="@+id/pin_confirm_show"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pin_Code_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pin_Code_confirm"
+        app:layout_constraintTop_toTopOf="@+id/pin_Code_confirm"
+        app:srcCompat="@drawable/hide_password" />
+</androidx.constraintlayout.widget.ConstraintLayout>
