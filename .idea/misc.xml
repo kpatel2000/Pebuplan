@@ -6,19 +6,34 @@
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/drawable/bg_green_boder.xml" value="0.111" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/drawable/budget_table_bg.xml" value="0.111" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/drawable/monthly_bills_table_bg.xml" value="0.111" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/font/architects_daughter.xml" value="0.20555555555555555" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/activity_home.xml" value="0.209375" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/activity_pin_confirm.xml" value="0.209375" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/activity_security_questions.xml" value="0.15625" />
-        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/budget_dialog_layout.xml" value="0.209375" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/budget_dialog_layout.xml" value="0.2" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/budget_item.xml" value="0.209375" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/custom_dialog_layout.xml" value="0.22" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_budget.xml" value="0.18" />
-        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_day.xml" value="0.2" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_day.xml" value="0.22" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_detail.xml" value="0.16" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_expenses.xml" value="0.22" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_f_goals.xml" value="0.25" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_income.xml" value="0.17" />
-        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_main_bills.xml" value="0.2" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_main_bills.xml" value="0.22" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_main_goals.xml" value="0.16296296296296298" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_monthly_budget.xml" value="0.2" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_record.xml" value="0.2" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_saving.xml" value="0.2" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_tracker_income.xml" value="0.1" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_tracker_main.xml" value="0.209375" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/fragment_year.xml" value="0.2" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/item_monthly_bills.xml" value="0.25" />
-        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/monthly_bills_dialog_layout.xml" value="0.2" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/item_record.xml" value="0.209375" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/monthly_bills_dialog_layout.xml" value="0.33" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/saving_item.xml" value="0.209375" />
         <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/toolbar.xml" value="0.209375" />
+        <entry key="..\:/Users/kartik/AndroidStudioProjects/Pebuplan/app/src/main/res/layout/tracker_item.xml" value="0.20833333333333334" />
       </map>
     </option>
   </component>

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
 import com.example.pebuplan.R;
+import com.example.pebuplan.adapter.MonthlyBudgetAdapter;
 import com.example.pebuplan.model.BudgetModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.google.gson.Gson;
@@ -48,6 +51,9 @@ public class TrackerExpensesFragment extends Fragment {
 
     AnyChartView pieChartExpense;
 
+    RecyclerView tracker_rec_view;
+    TrackerAdapter adapter;
+    ArrayList<TrackerModel> trackerArrayList = new ArrayList<>();
     TextView months_expense;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
@@ -70,6 +76,12 @@ public class TrackerExpensesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
+
+        tracker_rec_view = view.findViewById(R.id.rec_view_tracker_expense);
+        tracker_rec_view.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new TrackerAdapter(trackerArrayList);
+        tracker_rec_view.setAdapter(adapter);
+
 
         preferences = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
         editor = preferences.edit();

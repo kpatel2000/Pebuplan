@@ -30,7 +30,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -38,9 +41,11 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
 
 
     private static final int PICK_IMAGE = 1;
-    TextInputEditText goal_amount, target_date, monthly_contribution;
+    TextInputEditText goal_amount, target_date, monthly_savings;
 
     String imagepath;
+    int target_month;
+    int calculatedMonthlySavings;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
@@ -65,11 +70,12 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
 
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        Button submit_btn = view.findViewById(R.id.button3);
+        Button submit_btn = view.findViewById(R.id.save_details);
 
-        goal_amount = view.findViewById(R.id.goal_amount_tbox);
-        target_date = view.findViewById(R.id.target_date_tbox);
-        monthly_contribution = view.findViewById(R.id.monthly_contribution_tbox);
+        goal_amount = view.findViewById(R.id.goal_amount);
+        target_date = view.findViewById(R.id.target_date);
+        monthly_savings = view.findViewById(R.id.monthly_savings);
+
         SharedPreferences sharedPref = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -107,10 +113,23 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(requireContext(),"Data Saved! It might take few minutes to load the data",Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(),"Data Saved! Your monthly savings is calculated",Toast.LENGTH_SHORT).show();
+
+                String goal = goal_amount.getText().toString();
+                Calendar cal = Calendar.getInstance();
+                int curr_month = cal.get(Calendar.MONTH);
+                int savings;
+                if(curr_month > target_month){
+                    savings = Integer.parseInt(goal)/(curr_month - target_month);
+                }else{
+                    savings = Integer.parseInt(goal)/(target_month - curr_month);
+                }
+
+                monthly_savings.setText(String.valueOf(savings));
+
                 editor.putString(name_plate + "goal_amount",goal_amount.getText().toString());
                 editor.putString(name_plate + "target_date",target_date.getText().toString());
-                editor.putString(name_plate + "monthly_contribution",monthly_contribution.getText().toString());
+                editor.putString(name_plate + "monthly_contribution",monthly_savings.getText().toString());
                 editor.putString("image_goals",imagepath);
                 editor.apply();
                 //Toast.makeText(requireContext(),"Da",Toast.LENGTH_LONG).show();
@@ -189,5 +208,6 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         target_date.setText(String.format("%d/%d/%d", month + 1, dayOfMonth, year));
+        target_month = month;
     }
 }

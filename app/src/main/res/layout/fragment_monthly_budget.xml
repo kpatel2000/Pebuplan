@@ -188,30 +188,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="140dp" />
+                    app:layout_constraintGuide_begin="130dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="224dp" />
+                    app:layout_constraintGuide_begin="220dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="311dp" />
+                    app:layout_constraintGuide_begin="302dp" />
 
                 <TextView
                     android:id="@+id/category_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:background="@color/purple_700"
+                    android:background="@color/purple_500"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:text="CATEGORIES"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -224,9 +225,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:background="@color/purple_700"
+                    android:background="@color/purple_500"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:text="BUDGETS"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -239,9 +241,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:background="@color/purple_700"
+                    android:background="@color/purple_500"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:text="DAILY"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -253,9 +256,10 @@
                     android:id="@+id/remains_title_week"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple_700"
+                    android:background="@color/purple_500"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:text="MONTHLY"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -290,21 +294,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="140dp" />
+                    app:layout_constraintGuide_begin="130dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="224dp" />
+                    app:layout_constraintGuide_begin="220dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="311dp" />
+                    app:layout_constraintGuide_begin="302dp" />
 
                 <TextView
                     android:id="@+id/category_total_week"
@@ -328,7 +332,8 @@
                     android:layout_marginEnd="2dp"
                     android:background="@drawable/budget_table_total_bg"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/guideline5"
@@ -342,7 +347,8 @@
                     android:layout_marginEnd="2dp"
                     android:background="@drawable/budget_table_total_bg"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/guideline6"
@@ -355,7 +361,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/budget_table_total_bg"
                     android:gravity="center"
-                    android:padding="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

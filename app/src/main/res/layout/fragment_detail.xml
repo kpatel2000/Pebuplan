@@ -10,33 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout"
-            android:layout_width="364dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.8"
-            android:hint="Goal Amount"
-            app:boxBackgroundColor="@android:color/white"
-            app:boxCornerRadiusBottomEnd="4dp"
-            app:boxCornerRadiusBottomStart="4dp"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusTopStart="4dp"
-            app:boxStrokeColor="@android:color/holo_green_dark"
-            app:boxStrokeWidth="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/upload_image"
-            app:layout_constraintStart_toStartOf="@+id/upload_image"
-            app:layout_constraintTop_toBottomOf="@+id/upload_image">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/goal_amount_tbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="@android:color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <ImageView
             android:id="@+id/upload_image"
             android:layout_width="157dp"
@@ -48,68 +21,99 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_2"
-            android:layout_width="364dp"
-            android:layout_height="55dp"
+        <LinearLayout
+            android:id="@+id/ll_goal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.8"
-            android:hint="Target Date"
-            app:boxBackgroundColor="@android:color/white"
-            app:boxCornerRadiusBottomEnd="4dp"
-            app:boxCornerRadiusBottomStart="4dp"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusTopStart="4dp"
-            app:boxStrokeColor="@android:color/holo_green_dark"
-            app:boxStrokeWidth="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/text_input_layout"
-            app:layout_constraintStart_toStartOf="@+id/text_input_layout"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_layout">
+            app:layout_constraintTop_toBottomOf="@id/upload_image">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/target_date_tbox"
+            <TextView
+                android:id="@+id/tv_enter_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Enter Goal Amount : "/>
+
+            <EditText
+                android:id="@+id/goal_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="@android:color/black" />
+                android:layout_marginStart="5dp"
+                android:hint="Goal Amount"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_3"
-            android:layout_width="364dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.8"
-            android:hint="Monthly Contribution"
-            app:boxBackgroundColor="@android:color/white"
-            app:boxCornerRadiusBottomEnd="4dp"
-            app:boxCornerRadiusBottomStart="4dp"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusTopStart="4dp"
-            app:boxStrokeColor="@android:color/holo_green_dark"
-            app:boxStrokeWidth="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_2"
-            app:layout_constraintStart_toStartOf="@+id/text_input_layout_2"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_2">
+        <LinearLayout
+            android:id="@+id/ll_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@id/ll_goal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/monthly_contribution_tbox"
+            <TextView
+                android:id="@+id/tv_target_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Target Date : "/>
+
+            <EditText
+                android:id="@+id/target_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="@android:color/black" />
+                android:layout_marginStart="5dp"
+                android:drawableEnd="@drawable/date_picker"
+                android:hint="Select Date"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/save_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Submit"
-            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_3"
-            app:layout_constraintStart_toStartOf="@+id/text_input_layout_3"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_3" />
+            android:layout_marginTop="30dp"
+            android:text="Save"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_date"/>
+
+        <LinearLayout
+            android:id="@+id/ll_savings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/save_details">
+
+            <TextView
+                android:id="@+id/tv_monthly_saving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Monthly Savings : "/>
+
+            <EditText
+                android:id="@+id/monthly_savings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:hint="Your Monthly Savings"/>
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

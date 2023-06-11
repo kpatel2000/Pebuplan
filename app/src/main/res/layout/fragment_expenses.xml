@@ -6,53 +6,243 @@
     android:layout_height="match_parent"
     tools:context=".fragments.tracker.TrackerExpensesFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/timeline_expense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="May"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/backward_image_expense"
-            android:layout_width="24dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/left_budget"
-            app:layout_constraintBottom_toBottomOf="@id/timeline_expense"
-            app:layout_constraintEnd_toStartOf="@id/timeline_expense"
-            app:layout_constraintTop_toTopOf="@id/timeline_expense"/>
+           <include
+               android:id="@+id/include2"
+               layout="@layout/toolbar"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
-            android:id="@+id/forward_image_expense"
-            android:layout_width="24dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/right_budget"
-            app:layout_constraintBottom_toBottomOf="@id/timeline_expense"
-            app:layout_constraintStart_toEndOf="@id/timeline_expense"
-            app:layout_constraintTop_toTopOf="@id/timeline_expense" />
+           <TextView
+               android:id="@+id/timeline_expense"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="15dp"
+               android:text="June 1, 2023"
+               android:textColor="@color/black"
+               android:textSize="20sp"
+               android:textStyle="bold"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/include2"/>
 
-        <com.anychart.AnyChartView
-            android:id="@+id/pieChartExpense"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/timeline_expense"/>
+           <ImageView
+               android:id="@+id/backward_image_expense"
+               android:layout_width="24dp"
+               android:layout_height="31dp"
+               android:layout_marginEnd="10dp"
+               android:src="@drawable/left_budget"
+               app:layout_constraintBottom_toBottomOf="@id/timeline_expense"
+               app:layout_constraintEnd_toStartOf="@id/timeline_expense"
+               app:layout_constraintTop_toTopOf="@id/timeline_expense" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+           <ImageView
+               android:id="@+id/forward_image_expense"
+               android:layout_width="24dp"
+               android:layout_height="31dp"
+               android:layout_marginStart="10dp"
+               android:src="@drawable/right_budget"
+               app:layout_constraintBottom_toBottomOf="@id/timeline_expense"
+               app:layout_constraintStart_toEndOf="@id/timeline_expense"
+               app:layout_constraintTop_toTopOf="@id/timeline_expense" />
+
+           <com.anychart.AnyChartView
+               android:id="@+id/pieChartExpense"
+               android:layout_width="200dp"
+               android:layout_height="200dp"
+               android:layout_marginTop="20dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintBottom_toTopOf="@id/guideline"
+               app:layout_constraintTop_toBottomOf="@id/timeline_expense" />
+
+           <androidx.constraintlayout.widget.Guideline
+               android:id="@+id/guideline"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               app:layout_constraintGuide_begin="330dp" />
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:id="@+id/ll_expense_table"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="8dp"
+               android:layout_marginEnd="8dp"
+               android:layout_marginTop="10dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/guideline">
+
+               <androidx.constraintlayout.widget.Guideline
+                   android:id="@+id/guideline1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   app:layout_constraintGuide_begin="159dp" />
+
+               <androidx.constraintlayout.widget.Guideline
+                   android:id="@+id/guideline2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   app:layout_constraintGuide_begin="277dp" />
+
+               <TextView
+                   android:id="@+id/category_title_tracker"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="2dp"
+                   android:background="@color/purple_500"
+                   android:gravity="center"
+                   android:paddingBottom="6dp"
+                   android:paddingTop="6dp"
+                   android:text="CATEGORIES"
+                   android:textColor="@color/white"
+                   android:textStyle="bold"
+                   app:layout_constraintEnd_toStartOf="@id/guideline1"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:id="@+id/budget_title_tracker"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="2dp"
+                   android:background="@color/purple_500"
+                   android:gravity="center"
+                   android:paddingBottom="6dp"
+                   android:paddingTop="6dp"
+                   android:text="BUDGETS"
+                   android:textColor="@color/white"
+                   android:textStyle="bold"
+                   app:layout_constraintEnd_toStartOf="@id/guideline2"
+                   app:layout_constraintStart_toStartOf="@id/guideline1"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:id="@+id/expense_title_tracker"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="2dp"
+                   android:background="@color/purple_500"
+                   android:gravity="center"
+                   android:paddingBottom="6dp"
+                   android:paddingTop="6dp"
+                   android:text="EXPENSE"
+                   android:textColor="@color/white"
+                   android:textStyle="bold"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="@id/guideline2"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/rec_view_tracker_expense"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:layout_constraintTop_toBottomOf="@id/ll_expense_table"
+               app:layout_constraintEnd_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               tools:listitem="@layout/tracker_item"/>
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:id="@+id/ll_day_table_total"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="8dp"
+               android:layout_marginTop="2dp"
+               android:layout_marginEnd="8dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/rec_view_tracker_expense">
+
+               <androidx.constraintlayout.widget.Guideline
+                   android:id="@+id/guideline4"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   app:layout_constraintGuide_begin="159dp" />
+
+               <androidx.constraintlayout.widget.Guideline
+                   android:id="@+id/guideline5"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   app:layout_constraintGuide_begin="277dp" />
+
+               <TextView
+                   android:id="@+id/category_total_tracker"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="2dp"
+                   android:background="@drawable/budget_table_total_bg"
+                   android:gravity="center"
+                   android:padding="6dp"
+                   android:text="TOTAL"
+                   android:textColor="@color/black"
+                   android:textStyle="bold"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toStartOf="@id/guideline4"/>
+
+               <TextView
+                   android:id="@+id/budget_total_tracker"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="2dp"
+                   android:background="@drawable/budget_table_total_bg"
+                   android:gravity="center"
+                   android:paddingBottom="6dp"
+                   android:paddingTop="6dp"
+                   android:textColor="@color/black"
+                   android:textStyle="bold"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintStart_toStartOf="@id/guideline4"
+                   app:layout_constraintEnd_toStartOf="@id/guideline5"/>
+
+               <TextView
+                   android:id="@+id/expense_total_tracker"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="2dp"
+                   android:background="@drawable/budget_table_total_bg"
+                   android:gravity="center"
+                   android:paddingBottom="6dp"
+                   android:paddingTop="6dp"
+                   android:textColor="@color/black"
+                   android:textStyle="bold"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="@id/guideline5"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+           <Button
+               android:id="@+id/save_tracker"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="SAVE"
+               android:layout_marginBottom="20dp"
+               android:layout_marginTop="20dp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/ll_day_table_total"
+               app:layout_constraintBottom_toBottomOf="parent"/>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+   </ScrollView>
 
 
 </FrameLayout>

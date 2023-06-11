@@ -35,7 +35,6 @@
             android:id="@+id/income_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:text="Save"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"

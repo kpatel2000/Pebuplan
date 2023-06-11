@@ -101,13 +101,13 @@ public class BudgetFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("DAY");
+                    tab.setText("DAILY");
                     break;
                 case 1:
-                    tab.setText("WEEK");
+                    tab.setText("WEEKLY");
                     break;
                 default:
-                    tab.setText("MONTH");
+                    tab.setText("MONTHLY");
                     break;
             }
         }).attach();

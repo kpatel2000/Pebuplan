@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -109,6 +111,7 @@ public class MainBillsFragment extends Fragment implements UpdateBill {
             @Override
             public void onClick(View view) {
                 CustomDialog cd = new CustomDialog(requireActivity(), MainBillsFragment.this);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.show();
             }
 

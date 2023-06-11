@@ -2,6 +2,8 @@ package com.example.pebuplan.fragments.monthlybudget;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -264,11 +266,12 @@ public class WeeklyBudget extends Fragment implements UpdateBudgetTable{
             @Override
             public void onClick(View view) {
                 BudgetCustomDialog cd = new BudgetCustomDialog(requireActivity(), WeeklyBudget.this);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.show();
             }
         });
 
-        saveWeekBudget = view.findViewById(R.id.saveWeek);
+        saveWeekBudget = view.findViewById(R.id.save_week);
         saveWeekBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

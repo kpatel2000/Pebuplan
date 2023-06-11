@@ -30,6 +30,8 @@ public class SavingFragment extends Fragment {
     private List<DataModel> dataList;
     private SavingsAdapter adapter;
 
+    TextView annual_total;
+
 
     public SavingFragment() {
 
@@ -46,10 +48,11 @@ public class SavingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_saving, container, false);
 
 
-        recyclerView = view.findViewById(R.id.recylerview);
+        recyclerView = view.findViewById(R.id.rec_view_savings);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ImageView back_image = view.findViewById(R.id.back_image);
+        annual_total = view.findViewById(R.id.budget_total_tracker);
 
         TextView title = view.findViewById(R.id.title);
         title.setText("Savings");
@@ -82,7 +85,9 @@ public class SavingFragment extends Fragment {
                }
         }
 
-        dataList.add(new DataModel("Total", String.valueOf(365),"₱" +  String.valueOf(total)));
+        annual_total.setText("₱ "+String.valueOf(total));
+
+//        dataList.add(new DataModel("Total", String.valueOf(365),"₱" +  String.valueOf(total)));
 
 //        dataList.add(new DataModel("April", "30", "₱200"));
 

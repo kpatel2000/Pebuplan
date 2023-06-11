@@ -21,6 +21,7 @@ import com.example.pebuplan.fragments.settings.HelpFragment;
 import com.example.pebuplan.fragments.settings.NotificationsFragment;
 import com.example.pebuplan.fragments.settings.SecurityFragment;
 import com.example.pebuplan.fragments.tipids.TipidTips;
+import com.example.pebuplan.fragments.tracker.TrackerExpensesFragment;
 import com.example.pebuplan.fragments.tracker.TrackerMainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(fragDetails.equals("m_budget")){
 //            BudgetFragment fragment = new BudgetFragment();
-            if(!sharedPreferences.getString("Income","").equals("")){
+            if(sharedPreferences.getString("Income","").equals("")){
                 IncomeFragment fragment = new IncomeFragment();
                 transaction(fragment);
             }else {
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             FGoals fragment = new FGoals();
             transaction(fragment);
         } else if (fragDetails.equals("i_tracker")) {
-            TrackerMainFragment fragment = new TrackerMainFragment();
+//            TrackerMainFragment fragment = new TrackerMainFragment();
+            TrackerExpensesFragment fragment = new TrackerExpensesFragment();
             transaction(fragment);
         }else if(fragDetails.equals("m_bills")){
             MainBillsFragment mainBillsFragment = new MainBillsFragment();

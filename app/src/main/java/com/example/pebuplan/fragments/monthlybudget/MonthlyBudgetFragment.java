@@ -2,6 +2,8 @@ package com.example.pebuplan.fragments.monthlybudget;
 
 import static com.facebook.appevents.UserDataStore.clear;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -232,6 +234,7 @@ public class MonthlyBudgetFragment extends Fragment implements UpdateBudgetTable
             @Override
             public void onClick(View view) {
                 BudgetCustomDialog cd = new BudgetCustomDialog(requireActivity(), MonthlyBudgetFragment.this);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.show();
             }
         });

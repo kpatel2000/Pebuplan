@@ -39,8 +39,8 @@ public class RecordFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_record, container, false);
 
-        ImageView floatingActionButton = view.findViewById(R.id.fab);
-        recyclerView = view.findViewById(R.id.recyclerView2);
+        ImageView floatingActionButton = view.findViewById(R.id.fab_record);
+        recyclerView = view.findViewById(R.id.record_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         List<Record> records = CustomDialog.getRecords(requireContext());

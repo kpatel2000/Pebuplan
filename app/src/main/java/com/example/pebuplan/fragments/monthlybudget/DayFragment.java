@@ -1,6 +1,8 @@
 package com.example.pebuplan.fragments.monthlybudget;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -155,6 +157,7 @@ public class DayFragment extends Fragment implements UpdateBudgetTable{
             @Override
             public void onClick(View view) {
                 BudgetCustomDialog cd = new BudgetCustomDialog(requireActivity(), DayFragment.this);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.show();
             }
         });

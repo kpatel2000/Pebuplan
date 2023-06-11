@@ -43,8 +43,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            recordTextView = itemView.findViewById(R.id.record);
-            dateTextView = itemView.findViewById(R.id.date);
+            recordTextView = itemView.findViewById(R.id.record_data);
+            dateTextView = itemView.findViewById(R.id.date_data);
         }
     }
 }

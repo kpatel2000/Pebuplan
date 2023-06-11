@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_day_table"
@@ -17,24 +16,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="130dp" />
+        app:layout_constraintGuide_begin="159dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="220dp" />
+        app:layout_constraintGuide_begin="277dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="302dp" />
 
     <EditText
-        android:id="@+id/category_data"
+        android:id="@+id/category_data_tracker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
@@ -49,7 +42,7 @@
         app:layout_constraintEnd_toStartOf="@id/guideline1"/>
 
     <EditText
-        android:id="@+id/budget_data"
+        android:id="@+id/budget_data_tracker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
@@ -64,7 +57,7 @@
         app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
     <EditText
-        android:id="@+id/spents_data"
+        android:id="@+id/expense_data_tracker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
@@ -75,21 +68,8 @@
         android:maxLines="1"
         android:background="@drawable/budget_table_bg"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintEnd_toStartOf="@id/guideline3"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline2"/>
 
-    <EditText
-        android:id="@+id/remains_data"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/budget_table_bg"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:textSize="11sp"
-        android:maxLines="1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

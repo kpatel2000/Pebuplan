@@ -50,9 +50,9 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            monthTextView = itemView.findViewById(R.id.textView23);
-            numOfDaysTextView = itemView.findViewById(R.id.textView30);
-            savingsTextView = itemView.findViewById(R.id.textView31);
+            monthTextView = itemView.findViewById(R.id.month_data);
+            numOfDaysTextView = itemView.findViewById(R.id.days_data);
+            savingsTextView = itemView.findViewById(R.id.savings_data);
         }
     }
 }
