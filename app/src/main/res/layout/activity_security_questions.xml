@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PinActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="281dp"
+        android:layout_height="287dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/alojalight"
+        android:text="Set Security Questions"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/question1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+
+    <TextView
+        android:id="@+id/question1"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Enter your university"
+        app:layout_constraintStart_toStartOf="@+id/question1_et"
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+    <EditText
+        android:id="@+id/question1_et"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:inputType="textPassword"
+        android:background="@drawable/green_bordered_edit_text"
+        android:gravity="center_vertical"
+        android:hint="Enter your answer"
+        android:padding="16dp"
+        android:textColor="@color/green"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintTop_toBottomOf="@+id/question1" />
+    <TextView
+        android:id="@+id/question2"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Enter your pet name"
+        app:layout_constraintStart_toStartOf="@+id/question1_et"
+        app:layout_constraintTop_toBottomOf="@+id/question1_et" />
+    <EditText
+        android:id="@+id/question2_et"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/green_bordered_edit_text"
+        android:gravity="center_vertical"
+        android:hint="Enter your answer"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        android:textColor="@color/green"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/question2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintStart_toStartOf="@+id/question2"
+        app:layout_constraintTop_toBottomOf="@+id/question2" />
+
+    <Button
+        android:id="@+id/security_save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="@+id/question2_et"
+        app:layout_constraintStart_toStartOf="@+id/question2_et"
+        app:layout_constraintTop_toBottomOf="@+id/question2_et" />
+
+    <ImageView
+        android:id="@+id/ques1Show"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        app:layout_constraintBottom_toBottomOf="@+id/question1_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/question1_et"
+        app:layout_constraintTop_toTopOf="@+id/question1_et"
+        app:srcCompat="@drawable/hide_password" />
+
+    <ImageView
+        android:id="@+id/ques2Show"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        app:layout_constraintBottom_toBottomOf="@+id/question2_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/question2_et"
+        app:layout_constraintTop_toTopOf="@+id/question2_et"
+        app:srcCompat="@drawable/hide_password" />
+</androidx.constraintlayout.widget.ConstraintLayout>

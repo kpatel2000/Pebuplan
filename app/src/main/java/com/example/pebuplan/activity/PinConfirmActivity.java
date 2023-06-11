@@ -29,6 +29,7 @@ public class PinConfirmActivity extends AppCompatActivity {
         TextView hide_text = findViewById(R.id.textView34);
 
         TextView pin_Code_box = findViewById(R.id.pin_Code_box);
+        TextView forgetPin = findViewById(R.id.forget_pin);
         Button sign_in = findViewById(R.id.button4);
 
         TextView signwithfinger = findViewById(R.id.signwithfinger);
@@ -52,6 +53,15 @@ public class PinConfirmActivity extends AppCompatActivity {
                     pin_Code_box.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     count = 0;
                 }
+            }
+        });
+
+        forgetPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PinConfirmActivity.this,SecurityQuestions.class);
+                intent.putExtra("callFrom","ForgetPin");
+                startActivity(intent);
             }
         });
 

@@ -38,6 +38,8 @@ public class PinActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("plan", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
+        Intent intent = getIntent();
+        String calledFrom = intent.getStringExtra("callFrom");
 
         pinShow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,11 +71,20 @@ public class PinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(pincode.getText().toString().equals(pinconfirm.getText().toString()) && !pincode.getText().toString().isEmpty()){
-                    Intent intent = new Intent(PinActivity.this, PinConfirmActivity.class);
-                    editor.putString("pincode", pincode.getText().toString());
-                    editor.apply();
-                    startActivity(intent);
-                    finish();
+                    if (!calledFrom.equals("ForgetPin")) {
+                        Intent intent = new Intent(PinActivity.this, SecurityQuestions.class);
+                        intent.putExtra("callFrom", "PinActivity");
+                        editor.putString("pincode", pincode.getText().toString());
+                        editor.apply();
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Intent intent = new Intent(PinActivity.this, PinConfirmActivity.class);
+                        editor.putString("pincode", pincode.getText().toString());
+                        editor.apply();
+                        startActivity(intent);
+                        finish();
+                    }
                 }else{
                     Toast.makeText(PinActivity.this, "Pin code doesn't match",Toast.LENGTH_SHORT).show();
                 }

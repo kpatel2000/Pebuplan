@@ -39,6 +39,18 @@
         app:layout_constraintWidth_percent="0.7" />
 
     <TextView
+        android:id="@+id/forget_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forget Pin?"
+        android:layout_marginTop="5dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/pin_Code_box"
+        app:layout_constraintEnd_toEndOf="@id/pin_Code_box"
+        app:layout_constraintTop_toBottomOf="@id/pin_Code_box"/>
+
+    <TextView
         android:id="@+id/textView35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +61,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pin_Code_box" />
+        app:layout_constraintTop_toBottomOf="@+id/forget_pin" />
 
     <TextView
         android:id="@+id/textView36"
