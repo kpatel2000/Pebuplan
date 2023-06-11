@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.monthlybills.TransferFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Amount"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amount_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@android:color/black" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/transfer_input_layout"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Transfer"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/transfer_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@android:color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/cate_spinner"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/transfer_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/transfer_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/transfer_input_layout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/date_input_layout"
+            android:layout_width="315dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Date"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/cate_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/cate_spinner">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:inputType="number"
+                android:textColor="@android:color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="52dp"
+            android:layout_height="45dp"
+            android:src="@drawable/date_selector_image"
+            app:layout_constraintBottom_toBottomOf="@+id/date_input_layout"
+            app:layout_constraintEnd_toStartOf="@+id/date_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/cate_spinner"
+            app:layout_constraintTop_toTopOf="@+id/date_input_layout" />
+
+        <Spinner
+            android:id="@+id/cate_payment"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/date_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/imageView19"
+            app:layout_constraintTop_toBottomOf="@+id/date_input_layout" />
+
+        <Button
+            android:id="@+id/pay_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cate_payment" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

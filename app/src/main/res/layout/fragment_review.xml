@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.fgoal.ReviewFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/review_image"
+            android:layout_width="157dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/upload_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Title"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/review_image"
+            app:layout_constraintStart_toStartOf="@+id/review_image"
+            app:layout_constraintTop_toBottomOf="@+id/review_image">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/title_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="text"
+                android:textColor="@android:color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_2"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Goal Amount"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/goal_amaount_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="number"
+                android:textColor="@android:color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_3"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Target Date"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_2"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout_2"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/target_date_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:enabled="false"
+                android:textColor="@android:color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_4"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Monthly Contribution"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_3"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout_3"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/monthly_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="number"
+                android:textColor="@android:color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_5"
+            android:layout_width="364dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            android:hint="Duration"
+            app:boxBackgroundColor="@android:color/white"
+            app:boxCornerRadiusBottomEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxStrokeColor="@android:color/holo_green_dark"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_4"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout_4"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/duration_tbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:enabled="false"
+                android:textColor="@android:color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
