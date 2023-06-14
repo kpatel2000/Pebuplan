@@ -201,6 +201,8 @@ public class TrackerExpensesFragment extends Fragment {
                     totalBudget.setText(String.valueOf(sumOfDailyBudget));
                     totalExpense.setText(String.valueOf(sumOfExpense));
                 }
+                setPieChart(selectedDate);
+
             }
         });
 
