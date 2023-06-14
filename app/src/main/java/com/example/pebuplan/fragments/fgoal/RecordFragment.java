@@ -1,11 +1,14 @@
 package com.example.pebuplan.fragments.fgoal;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +16,23 @@ import android.widget.ImageView;
 
 import com.example.pebuplan.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecordFragment extends Fragment {
+public class RecordFragment extends Fragment implements SaveRecord {
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<Record> recordList;
 
-    public RecordFragment() {
+    String value;
+    public RecordFragment(String value) {
+        this.value = value;
         // Required empty public constructor
     }
 
@@ -43,9 +51,11 @@ public class RecordFragment extends Fragment {
         recyclerView = view.findViewById(R.id.record_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        List<Record> records = CustomDialog.getRecords(requireContext());
-        recordList = new ArrayList<>();
+        List<Record> records = getRecords();
 
+        if (recordList == null){
+            recordList = new ArrayList<>();
+        }
         for (Record record : records) {
             String recordText = record.getRecord();
             String dateText = record.getDate();
@@ -53,32 +63,48 @@ public class RecordFragment extends Fragment {
             recordList.add(new Record(recordText,dateText));
         }
 
-
-/*        recordList.add(new Record("Record 1", "2023-05-01"));
-        recordList.add(new Record("Record 2", "2023-05-02"));
-        recordList.add(new Record("Record 3", "2023-05-03"));*/
-
+        if (recordList == null){
+            recordList = new ArrayList<>();
+        }
         adapter = new RecyclerViewAdapter(recordList);
         recyclerView.setAdapter(adapter);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomDialog.showCustomDialog(requireContext());
+                CustomDialog.showCustomDialog(requireContext(),RecordFragment.this);
             }
         });
         return view;
     }
 
-    public void onResume() {
-        super.onResume();
-        List<Record> records = CustomDialog.getRecords(requireContext());
-        recordList = new ArrayList<>();
-        adapter.notifyDataSetChanged();
-        for (Record record : records) {
-            String recordText = record.getRecord();
-            String dateText = record.getDate();
-            recordList.add(new Record(recordText,dateText));
+    private List<Record> getRecords() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("plan", Context.MODE_PRIVATE);
+        String recordsJson = sharedPreferences.getString(value+"_records", "");
+        if (!TextUtils.isEmpty(recordsJson)) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Record>>() {}.getType();
+            return gson.fromJson(recordsJson, type);
         }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void saveRecordData(Record record) {
+        ArrayList<Record> records = new ArrayList<>();
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("plan", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String recordsJson = sharedPreferences.getString(value+"_records", "");
+        if (!TextUtils.isEmpty(recordsJson)) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Record>>() {}.getType();
+            records = gson.fromJson(recordsJson, type);
+        }
+        records.add(record);
+        Gson gson = new Gson();
+        String recordString = gson.toJson(records);
+        editor.putString(value+"_records",recordString);
+        editor.apply();
+        adapter.update(records);
     }
 }

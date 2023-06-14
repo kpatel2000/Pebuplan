@@ -20,8 +20,8 @@ import java.util.List;
 public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder> {
 
 
-    ArrayList<TrackerModel> TrackerList;
-    public TrackerAdapter(ArrayList<TrackerModel> trackerList){
+    ArrayList<BudgetModel> TrackerList;
+    public TrackerAdapter(ArrayList<BudgetModel> trackerList){
         if (TrackerList == null){
             TrackerList = new ArrayList<>();
         }
@@ -39,11 +39,17 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.category.setText(TrackerList.get(position).getCategory());
-        holder.budget.setText(TrackerList.get(position).getBudget());
-        holder.expense.setText(TrackerList.get(position).getExpense());
-
+        if (!TrackerList.get(position).getDaily().equals("")){
+            holder.budget.setText(TrackerList.get(position).getDaily());
+        }
+        if (TrackerList.get(position).getExpense() != null){
+            holder.expense.setText(TrackerList.get(position).getExpense());
+        }
     }
-
+    public void updateRecyclerView(ArrayList<BudgetModel> list){
+        TrackerList = list;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return TrackerList.size();
@@ -57,7 +63,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             category = itemView.findViewById(R.id.category_data_tracker);
             budget = itemView.findViewById(R.id.budget_data_tracker);
             expense = itemView.findViewById(R.id.expense_data_tracker);

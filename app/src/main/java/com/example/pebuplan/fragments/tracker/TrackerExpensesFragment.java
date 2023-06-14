@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -53,8 +54,8 @@ public class TrackerExpensesFragment extends Fragment {
 
     RecyclerView tracker_rec_view;
     TrackerAdapter adapter;
-    ArrayList<TrackerModel> trackerArrayList = new ArrayList<>();
-    TextView months_expense;
+    ArrayList<BudgetModel> trackerArrayList = new ArrayList<>();
+    TextView months_expense, totalBudget, totalExpense;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
     ImageView forward_expense, backward_expense;
@@ -70,6 +71,7 @@ public class TrackerExpensesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -77,14 +79,59 @@ public class TrackerExpensesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
 
+        preferences = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = Calendar.getInstance().getTime();
+        selectedDate = format.format(currentDate);
+        trackerArrayList = getDayData(selectedDate);
+        totalBudget = view.findViewById(R.id.budget_total_tracker);
+        totalExpense = view.findViewById(R.id.expense_total_tracker);
+        if (trackerArrayList.size() == 0){
+            trackerArrayList.add(new BudgetModel(
+                    "Groceries",
+                    "",
+                    ""
+            ));
+            trackerArrayList.add(new BudgetModel(
+                    "Electricity",
+                    "",
+                    ""
+            ));
+            trackerArrayList.add(new BudgetModel(
+                    "Water",
+                    "",
+                    ""
+            ));
+            trackerArrayList.add(new BudgetModel(
+                    "House Rent",
+                    "",
+                    ""
+            ));
+            trackerArrayList.add(new BudgetModel(
+                    "Gasoline",
+                    "",
+                    ""
+            ));
+        }else{
+            int sumOfDailyBudget = 0;
+            int sumOfExpense = 0;
+            for (int start=0;start<trackerArrayList.size();start++){
+                if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null) {
+                    sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                    sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
+                }
+            }
+            totalBudget.setText(String.valueOf(sumOfDailyBudget));
+            totalExpense.setText(String.valueOf(sumOfExpense));
+        }
+
         tracker_rec_view = view.findViewById(R.id.rec_view_tracker_expense);
         tracker_rec_view.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new TrackerAdapter(trackerArrayList);
         tracker_rec_view.setAdapter(adapter);
 
 
-        preferences = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
-        editor = preferences.edit();
         Calendar calendar = Calendar.getInstance();
         currentYear = calendar.get(Calendar.YEAR);
         currentMonth = calendar.get(Calendar.MONTH)+1;
@@ -105,31 +152,116 @@ public class TrackerExpensesFragment extends Fragment {
         backward_expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar.add(Calendar.MONTH, -1);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+                calendar.add(Calendar.DATE, -1);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date currentDate = calendar.getTime();
                 int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
+                int day = calendar.get(Calendar.DATE);
                 String[] monthNames = new DateFormatSymbols().getMonths();
-                months_expense.setText(monthNames[month] + ", " + year);
-                getCurrentMonthData(month);
+                months_expense.setText(monthNames[month] + day + ", " + year);
+                selectedDate = format.format(currentDate);
+                trackerArrayList = getDayData(selectedDate);
+                adapter.updateRecyclerView(trackerArrayList);
+                if (trackerArrayList.size() == 0){
+                    trackerArrayList.add(new BudgetModel(
+                            "Groceries",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "Electricity",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "Water",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "House Rent",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "Gasoline",
+                            "",
+                            ""
+                    ));
+                }else{
+                    int sumOfDailyBudget = 0;
+                    int sumOfExpense = 0;
+                    for (int start=0;start<trackerArrayList.size();start++){
+                        if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null) {
+                            sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                            sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
+                        }
+                    }
+                    totalBudget.setText(String.valueOf(sumOfDailyBudget));
+                    totalExpense.setText(String.valueOf(sumOfExpense));
+                }
             }
         });
 
         forward_expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar.add(Calendar.MONTH, 1);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+                calendar.add(Calendar.DATE, 1);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date currentDate = Calendar.getInstance().getTime();
                 int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
+                int day = calendar.get(Calendar.DATE);
                 String[] monthNames = new DateFormatSymbols().getMonths();
-                months_expense.setText(monthNames[month] + ", " + year);
-                getCurrentMonthData(month);
+                months_expense.setText(monthNames[month] + day + ", " + year);
+                selectedDate = format.format(currentDate);
+                trackerArrayList = getDayData(selectedDate);
+                adapter.updateRecyclerView(trackerArrayList);
+                if (trackerArrayList.size() == 0){
+                    trackerArrayList.add(new BudgetModel(
+                            "Groceries",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "Electricity",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "Water",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "House Rent",
+                            "",
+                            ""
+                    ));
+                    trackerArrayList.add(new BudgetModel(
+                            "Gasoline",
+                            "",
+                            ""
+                    ));
+                }else{
+                    int sumOfDailyBudget = 0;
+                    int sumOfExpense = 0;
+                    for (int start=0;start<trackerArrayList.size();start++){
+                        if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null) {
+                            sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                            sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
+                        }
+                    }
+                    totalBudget.setText(String.valueOf(sumOfDailyBudget));
+                    totalExpense.setText(String.valueOf(sumOfExpense));
+                }
             }
         });
         return view;
     }
 
+/*
     private void setPieChart(int currentMonth) {
         int income = getIncomeData(currentMonth);
         int rest = income;
@@ -145,8 +277,8 @@ public class TrackerExpensesFragment extends Fragment {
         }else{
             dataEntries = new ArrayList<>();
             for (int start=0;start<monthlyBillsArrayList.size();start++){
-                if (!monthlyBillsArrayList.get(start).getSpent().equals("")) {
-                    int spent = Integer.parseInt(monthlyBillsArrayList.get(start).getSpent());
+                if (!monthlyBillsArrayList.get(start).getExpense().equals("")) {
+                    int spent = Integer.parseInt(monthlyBillsArrayList.get(start).getExpense());
                     rest -= spent;
                     float percentage =((float)spent/income)*100;
                     dataEntries.add(new ValueDataEntry(monthlyBillsArrayList.get(start).getCategory(), percentage));
@@ -163,66 +295,28 @@ public class TrackerExpensesFragment extends Fragment {
             }
         }
     }
+*/
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         pieChartExpense = view.findViewById(R.id.pieChartExpense);
-        getCurrentMonthData(currentMonth-1);
-
     }
-
-    private void getCurrentMonthData(int currentMonth) {
+    private ArrayList<BudgetModel> getDayData(String selectedDate) {
         Gson gson = new Gson();
-        String[] monthNames = new DateFormatSymbols().getMonths();
-        String storedHashMapString = preferences.getString("MonthData", "oopsDintWork");
+        String storedHashMapString = preferences.getString("DayData", "oopsDintWork");
         if (!storedHashMapString.equals("oopsDintWork")){
             java.lang.reflect.Type type = new TypeToken<HashMap<String, ArrayList<BudgetModel>>>(){}.getType();
             hashMap = gson.fromJson(storedHashMapString, type);
-
-            selectedDate = monthNames[currentMonth];
-            if (hashMap.size() == 1){
-                if (hashMap.containsKey("null")){
-                    Toast.makeText(requireContext(), "Please add your spent details",Toast.LENGTH_SHORT).show();
-                }else{
-                    if (hashMap.get(selectedDate) != null) {
-                        if (monthlyBillsArrayList == null){
-                            monthlyBillsArrayList = new ArrayList<>();
-                        }
-                        monthlyBillsArrayList = hashMap.get(selectedDate);
-                        setPieChart(currentMonth);
-                    }
+            if (hashMap.get(selectedDate) != null) {
+                if (trackerArrayList == null){
+                    trackerArrayList = new ArrayList<>();
                 }
-            }else{
-                if (hashMap.get(selectedDate) != null) {
-                    if (monthlyBillsArrayList == null){
-                        monthlyBillsArrayList = new ArrayList<>();
-                    }
-                    monthlyBillsArrayList = hashMap.get(selectedDate);
-                    setPieChart(currentMonth);
-                }else{
-                    setPieChart(currentMonth);
-                }
+                return trackerArrayList = hashMap.get(selectedDate);
             }
         }
-    }
-
-    private int getIncomeData(int currentMonth){
-        Gson gson = new Gson();
-        String incomeString = preferences.getString("Income", "IncomeNotFound");
-        if(!incomeString.equals("IncomeNotFound") && !incomeString.equals("")) {
-            java.lang.reflect.Type typeIncome = new TypeToken<HashMap<Integer, String>>() {
-            }.getType();
-            incomeHashMap = gson.fromJson(incomeString, typeIncome);
-        }
-        if (incomeHashMap != null){
-            String income = incomeHashMap.get(currentMonth);
-            if (income != null) {
-                return Integer.parseInt(income);
-            }
-        }
-        return 0;
+        return new ArrayList<>();
     }
 
 }

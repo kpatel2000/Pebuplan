@@ -8,8 +8,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class GoalsAdapter extends FragmentStateAdapter {
 
-    public GoalsAdapter(Fragment fragment) {
+    String value;
+    public GoalsAdapter(Fragment fragment, String value) {
         super(fragment);
+        this.value = value;
     }
 
     @NonNull
@@ -17,9 +19,9 @@ public class GoalsAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
          switch (position) {
             case 0:
-                return new DetailFragment();
+                return new DetailFragment(value);
             case 1:
-                return new RecordFragment();
+                return new RecordFragment(value);
             default:
                 return null;
         }

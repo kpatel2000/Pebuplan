@@ -33,7 +33,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="302dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/category_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
-    <EditText
+    <TextView
         android:id="@+id/spents_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline3"/>
 
-    <EditText
+    <TextView
         android:id="@+id/remains_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

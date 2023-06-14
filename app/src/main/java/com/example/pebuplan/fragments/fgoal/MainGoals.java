@@ -39,13 +39,13 @@ public class MainGoals extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         ViewPager2 viewPager = view.findViewById(R.id.view_pager);
 
-        TextView title = view.findViewById(R.id.title);
-        title.setText("Financial Goal");
-        GoalsAdapter adapter = new GoalsAdapter(this);
-        viewPager.setAdapter(adapter);
-
         Bundle bundle = getArguments();
         String value = bundle.getString("key");
+        TextView title = view.findViewById(R.id.title);
+        title.setText("Financial Goal");
+        GoalsAdapter adapter = new GoalsAdapter(this, value);
+        viewPager.setAdapter(adapter);
+
 
         ImageView back_image = view.findViewById(R.id.back_image);
 

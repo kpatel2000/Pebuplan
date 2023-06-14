@@ -28,11 +28,13 @@ public class CustomDialog {
     public static final String SHARED_PREF_NAME = "CustomDialogPrefs";
     public static final String KEY_RECORDS = "records";
     private static EditText dateEditText;
+    static SaveRecord saveRecord;
 
-    public static void showCustomDialog(final Context context) {
+    public static void showCustomDialog(final Context context, SaveRecord saveRecord) {
         // Create a Dialog instance
         final Dialog dialog = new Dialog(context);
 
+        CustomDialog.saveRecord = saveRecord;
         // Set the custom layout for the dialog
         View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog_layout, null);
         dialog.setContentView(dialogView);
@@ -65,14 +67,17 @@ public class CustomDialog {
                 // Create a new Record object
                 Record newRecord = new Record(record, date);
 
-                // Get the existing list of records from SharedPreferences
-                List<Record> records = getRecords(context);
+                saveRecord.saveRecordData(newRecord);
+//                // Get the existing list of records from SharedPreferences
+//                List<Record> records = getRecords(context);
+//
+//                // Add the new record to the list
+//                records.add(newRecord);
+//
+//                // Save the updated list of records to SharedPreferences
+//                saveRecords(context, records);
 
-                // Add the new record to the list
-                records.add(newRecord);
 
-                // Save the updated list of records to SharedPreferences
-                saveRecords(context, records);
 
                 // Close the dialog
                 dialog.dismiss();
@@ -83,17 +88,6 @@ public class CustomDialog {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         dialog.show();
-    }
-
-    public static List<Record> getRecords(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String recordsJson = sharedPreferences.getString(KEY_RECORDS, "");
-        if (!TextUtils.isEmpty(recordsJson)) {
-            Gson gson = new Gson();
-            Type type = new TypeToken<List<Record>>() {}.getType();
-            return gson.fromJson(recordsJson, type);
-        }
-        return new ArrayList<>();
     }
 
     public static void saveRecords(Context context, List<Record> records) {
@@ -108,4 +102,8 @@ public class CustomDialog {
     public static void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         dateEditText.setText(String.format("%d/%d/%d", month + 1, dayOfMonth, year));
     }
+}
+
+interface SaveRecord{
+    void saveRecordData(Record record);
 }

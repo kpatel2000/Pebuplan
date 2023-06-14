@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pebuplan.R;
+import com.example.pebuplan.model.BudgetModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -35,6 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
         return recordList.size();
+    }
+
+    void update(ArrayList<Record> records){
+        recordList.clear();
+        this.recordList = records;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

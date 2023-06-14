@@ -3,26 +3,29 @@ package com.example.pebuplan.model;
 public class BudgetModel {
 
     String category;
-    String budget;
-    String spent;
-    String remain;
+    String daily;
+    String weekly;
+    String monthly;
+    String expense;
+    String savings;
 
-    public BudgetModel(String category, String budget, String spent, String remain) {
+
+    public BudgetModel(String category, String daily, String weekly, String monthly) {
         this.category = category;
-        this.budget = budget;
-        this.spent = spent;
-        this.remain = remain;
+        this.daily = daily;
+        this.weekly = weekly;
+        this.monthly = monthly;
     }
 
-    public BudgetModel(String category, String budget) {
+    public BudgetModel(String category, String daily, String expense) {
         this.category = category;
-        this.budget = budget;
+        this.daily = daily;
+        this.expense = expense;
     }
 
-    public BudgetModel(String category, String budget, String spent) {
+    public BudgetModel(String category, String daily) {
         this.category = category;
-        this.budget = budget;
-        this.spent = spent;
+        this.daily = daily;
     }
 
     public String getCategory() {
@@ -33,27 +36,43 @@ public class BudgetModel {
         this.category = category;
     }
 
-    public String getBudget() {
-        return budget;
+    public String getDaily() {
+        return daily;
     }
 
-    public void setBudget(String budget) {
-        this.budget = budget;
+    public void setDaily(String daily) {
+        this.daily = daily;
     }
 
-    public String getSpent() {
-        return spent;
+    public String getWeekly() {
+        return weekly;
     }
 
-    public void setSpent(String spent) {
-        this.spent = spent;
+    public void setWeekly(String weekly) {
+        this.weekly = weekly;
     }
 
-    public String getRemain() {
-        return remain;
+    public String getMonthly() {
+        return monthly;
     }
 
-    public void setRemain(String remain) {
-        this.remain = remain;
+    public void setMonthly(String monthly) {
+        this.monthly = monthly;
+    }
+
+    public String getExpense() {
+        return expense;
+    }
+
+    public void setExpense(String expense) {
+        this.expense = expense;
+    }
+
+    public String getSavings() {
+        return savings;
+    }
+
+    public void setSavings(String savings) {
+        this.savings = savings;
     }
 }

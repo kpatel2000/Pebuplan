@@ -16,17 +16,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.viewmodel.CreationExtras;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pebuplan.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +44,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
 
 
     private static final int PICK_IMAGE = 1;
-    TextInputEditText goal_amount, target_date, monthly_savings;
+    EditText goal_amount, target_date, monthly_savings;
 
     String imagepath;
     int target_month;
@@ -53,9 +56,10 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
 
     String name_plate;
     ImageView upload_image;
+    String value;
 
-    public DetailFragment() {
-
+    public DetailFragment(String value) {
+        this.value = value;
     }
 
 
@@ -77,10 +81,22 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
         monthly_savings = view.findViewById(R.id.monthly_savings);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        name_plate = sharedPref.getString("fgoals_task", "Home");
+        String goalAmount = sharedPref.getString(value+"_details_goalAmount","0");
+        String months = sharedPref.getString(value+"_details_target_date","0");
+        String savings = sharedPref.getString(value+"_details_monthly_contribution","0");
+        String image = sharedPref.getString(value+"_details_image",null);
+        if (!goalAmount.equals("0") && !months.equals("0") && !savings.equals("0") && image!=null){
+            goal_amount.setText(goalAmount);
+            target_date.setText(months);
+            monthly_savings.setText(savings);
+            upload_image.setImageBitmap(decodeBase64(image));
+        }else if(!goalAmount.equals("0") && !months.equals("0") && !savings.equals("0")){
+            goal_amount.setText(goalAmount);
+            target_date.setText(months);
+            monthly_savings.setText(savings);
+        }
 
         upload_image = view.findViewById(R.id.upload_image);
         upload_image.setOnClickListener(new View.OnClickListener() {
@@ -127,34 +143,16 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
 
                 monthly_savings.setText(String.valueOf(savings));
 
-                editor.putString(name_plate + "goal_amount",goal_amount.getText().toString());
-                editor.putString(name_plate + "target_date",target_date.getText().toString());
-                editor.putString(name_plate + "monthly_contribution",monthly_savings.getText().toString());
-                editor.putString("image_goals",imagepath);
+                editor.putString(value+"_details_goalAmount",goal_amount.getText().toString());
+                editor.putString(value+"_details_target_date",target_date.getText() != null? target_date.getText().toString():"");
+                editor.putString(value+"_details_monthly_contribution",String.valueOf(savings));
+                editor.putString(value+"_details_image",imagepath);
                 editor.apply();
-                //Toast.makeText(requireContext(),"Da",Toast.LENGTH_LONG).show();
             }
         });
 
         return view;
     }
-
-/*    public void selectImage(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 0);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == 0) {
-            Uri uri = data.getData();
-            ImageView imageView = getView().findViewById(R.id.upload_image);
-            imageView.setImageURI(uri);
-            imagepath = uri.getPath();
-        }
-    }*/
 
     private void pickImage() {
         Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -162,7 +160,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
     }
 
     private void saveImageToStorage(Bitmap bitmap) {
-        String fileName = name_plate + "my_image.jpg";
+        String fileName =  value+".jpg";
         FileOutputStream outputStream;
 
         try {
@@ -186,6 +184,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
                     if (imageBitmap != null) {
                         upload_image.setImageBitmap(imageBitmap);
+                        imagepath = encodeTobase64(imageBitmap);
                         saveImageToStorage(imageBitmap);
                     }
                 }
@@ -196,6 +195,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
                     Bitmap imageBitmap = BitmapFactory.decodeStream(inputStream);
                     if (imageBitmap != null) {
                         upload_image.setImageBitmap(imageBitmap);
+                        imagepath = encodeTobase64(imageBitmap);
                         saveImageToStorage(imageBitmap);
                     }
                 } catch (IOException e) {
@@ -203,6 +203,18 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
                 }
             }
         }
+    }
+    public static String encodeTobase64(Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory
+                .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
     @Override
