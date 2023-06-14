@@ -94,60 +94,10 @@ public class MonthlyBudgetFragment extends Fragment implements UpdateBudgetTable
         currentYear = calendar.get(Calendar.YEAR);
         currentMonth = calendar.get(Calendar.MONTH);
 
-        String[] monthNames = new DateFormatSymbols().getMonths();
-
-        monthlyBillsArrayList = getCurrentMonthData(monthNames[currentMonth]);
-        if (monthlyBillsArrayList.size() == 0){
-            monthlyBillsArrayList.add(new BudgetModel(
-                    "Groceries",
-                    "",
-                    "",
-                    ""
-            ));
-            monthlyBillsArrayList.add(new BudgetModel(
-                    "Electricity",
-                    "",
-                    "",
-                    ""
-            ));
-            monthlyBillsArrayList.add(new BudgetModel(
-                    "Water",
-                    "",
-                    "",
-                    ""
-            ));
-            monthlyBillsArrayList.add(new BudgetModel(
-                    "House Rent",
-                    "",
-                    "",
-                    ""
-            ));
-            monthlyBillsArrayList.add(new BudgetModel(
-                    "Gasoline",
-                    "",
-                    "",
-                    ""
-            ));
-        }else{
-            int sumOfDailyBudget = 0;
-            int sumOfWeeklyBudget = 0;
-            int sumOfMonthlyBudget = 0;
-            for (int start=0;start<monthlyBillsArrayList.size();start++){
-                if (!monthlyBillsArrayList.get(start).getMonthly().equals("")) {
-                    sumOfDailyBudget += Integer.parseInt(monthlyBillsArrayList.get(start).getDaily());
-                    sumOfWeeklyBudget += Integer.parseInt(monthlyBillsArrayList.get(start).getWeekly());
-                    sumOfMonthlyBudget += Integer.parseInt(monthlyBillsArrayList.get(start).getMonthly());
-                }
-            }
-            totalBudget.setText(String.valueOf(sumOfMonthlyBudget));
-            totalSpent.setText(String.valueOf(sumOfDailyBudget));
-            totalRemains.setText(String.valueOf(sumOfWeeklyBudget));
-        }
-
         months = view.findViewById(R.id.timeline);
         backward = view.findViewById(R.id.backward_image);
         forward = view.findViewById(R.id.forward_image);
-
+        String[] monthNames = new DateFormatSymbols().getMonths();
         months.setText(monthNames[currentMonth]);
 
 
@@ -317,6 +267,56 @@ public class MonthlyBudgetFragment extends Fragment implements UpdateBudgetTable
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        String[] monthNames = new DateFormatSymbols().getMonths();
+        selectedDate = monthNames[currentMonth];
+        monthlyBillsArrayList = getCurrentMonthData(selectedDate);
+        if (monthlyBillsArrayList.size() == 0){
+            monthlyBillsArrayList.add(new BudgetModel(
+                    "Groceries",
+                    "",
+                    "",
+                    ""
+            ));
+            monthlyBillsArrayList.add(new BudgetModel(
+                    "Electricity",
+                    "",
+                    "",
+                    ""
+            ));
+            monthlyBillsArrayList.add(new BudgetModel(
+                    "Water",
+                    "",
+                    "",
+                    ""
+            ));
+            monthlyBillsArrayList.add(new BudgetModel(
+                    "House Rent",
+                    "",
+                    "",
+                    ""
+            ));
+            monthlyBillsArrayList.add(new BudgetModel(
+                    "Gasoline",
+                    "",
+                    "",
+                    ""
+            ));
+        }else{
+            int sumOfDailyBudget = 0;
+            int sumOfWeeklyBudget = 0;
+            int sumOfMonthlyBudget = 0;
+            for (int start=0;start<monthlyBillsArrayList.size();start++){
+                if (!monthlyBillsArrayList.get(start).getMonthly().equals("")) {
+                    sumOfDailyBudget += Integer.parseInt(monthlyBillsArrayList.get(start).getDaily());
+                    sumOfWeeklyBudget += Integer.parseInt(monthlyBillsArrayList.get(start).getWeekly());
+                    sumOfMonthlyBudget += Integer.parseInt(monthlyBillsArrayList.get(start).getMonthly());
+                }
+            }
+            totalBudget.setText(String.valueOf(sumOfMonthlyBudget));
+            totalSpent.setText(String.valueOf(sumOfDailyBudget));
+            totalRemains.setText(String.valueOf(sumOfWeeklyBudget));
+        }
         if (monthlyBillsArrayList == null) {
             monthlyBillsArrayList = new ArrayList<>();
         }
