@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class TrackerExpensesFragment extends Fragment {
+public class TrackerExpensesFragment extends Fragment implements Update{
 
 
     public TrackerExpensesFragment() {
@@ -61,6 +62,8 @@ public class TrackerExpensesFragment extends Fragment {
     ImageView forward_expense, backward_expense;
     int currentYear;
     int currentMonth;
+    int currentDay;
+    Button save;
     String selectedDate;
     List<DataEntry> dataEntries;
     HashMap<String, ArrayList<BudgetModel>> hashMap = new HashMap<>();
@@ -84,6 +87,7 @@ public class TrackerExpensesFragment extends Fragment {
         trackerArrayList = getDayData(selectedDate);
         totalBudget = view.findViewById(R.id.budget_total_tracker);
         totalExpense = view.findViewById(R.id.expense_total_tracker);
+        save = view.findViewById(R.id.save_tracker);
         if (trackerArrayList.size() == 0){
             trackerArrayList.add(new BudgetModel(
                     "Groceries",
@@ -114,7 +118,7 @@ public class TrackerExpensesFragment extends Fragment {
             int sumOfDailyBudget = 0;
             int sumOfExpense = 0;
             for (int start=0;start<trackerArrayList.size();start++){
-                if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null) {
+                if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")) {
                     sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
                     sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
                 }
@@ -201,7 +205,7 @@ public class TrackerExpensesFragment extends Fragment {
                     totalBudget.setText(String.valueOf(sumOfDailyBudget));
                     totalExpense.setText(String.valueOf(sumOfExpense));
                 }
-                setPieChart(selectedDate);
+//                setPieChart(selectedDate);
 
             }
         });
@@ -260,7 +264,18 @@ public class TrackerExpensesFragment extends Fragment {
                     totalBudget.setText(String.valueOf(sumOfDailyBudget));
                     totalExpense.setText(String.valueOf(sumOfExpense));
                 }
-                setPieChart(selectedDate);
+//                setPieChart(selectedDate);
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Gson gson = new Gson();
+                hashMap.put(selectedDate, trackerArrayList);
+                String hashMapString = gson.toJson(hashMap);
+                editor.putString("DayData", hashMapString);
+                editor.apply();
             }
         });
         return view;

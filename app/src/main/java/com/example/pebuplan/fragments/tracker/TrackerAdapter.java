@@ -5,6 +5,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,11 +24,13 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
 
 
     private ArrayList<BudgetModel> TrackerList;
-    public TrackerAdapter(ArrayList<BudgetModel> trackerList){
+    private Update update;
+    public TrackerAdapter(ArrayList<BudgetModel> trackerList,Update update){
         if (TrackerList == null){
             TrackerList = new ArrayList<>();
         }
         TrackerList = trackerList;
+        this.update = update;
     }
 
 
@@ -58,7 +61,8 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                String expense = holder.expense.getText().toString();
+                TrackerList.get(holder.getAdapterPosition()).setExpense(expense);
             }
 
             @Override
@@ -81,7 +85,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
 
         TextView category;
         TextView budget;
-        TextView expense;
+        EditText expense;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,5 +94,9 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
             expense = itemView.findViewById(R.id.expense_data_tracker);
         }
     }
+}
+
+interface Update{
+    void updateList(ArrayList<BudgetModel> newList);
 }
 
