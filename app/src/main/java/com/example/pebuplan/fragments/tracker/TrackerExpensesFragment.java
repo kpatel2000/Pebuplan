@@ -270,14 +270,13 @@ public class TrackerExpensesFragment extends Fragment {
     private void setPieChart(String selectedDate) {
         trackerArrayList = getDayData(selectedDate);
         if (trackerArrayList.isEmpty()){
+            pieChartExpense.clear();
             Toast.makeText(requireContext(),"Please enter your budget data",Toast.LENGTH_SHORT).show();
             dataEntries = new ArrayList<>();
             dataEntries.add(new ValueDataEntry("No Value",0));
             Pie pieExpense = AnyChart.pie();
-            if (dataEntries.size() != 0) {
-                pieExpense.data(dataEntries);
-                pieChartExpense.setChart(pieExpense);
-            }
+            pieExpense.data(dataEntries);
+            pieChartExpense.setChart(pieExpense);
         }else{
             dataEntries = new ArrayList<>();
             for (int start=0;start<trackerArrayList.size();start++){
