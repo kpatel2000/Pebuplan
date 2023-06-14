@@ -59,8 +59,6 @@ public class TrackerExpensesFragment extends Fragment {
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
     ImageView forward_expense, backward_expense;
-
-    ArrayList<BudgetModel> monthlyBillsArrayList = new ArrayList<>();
     int currentYear;
     int currentMonth;
     int currentDay;
@@ -139,6 +137,7 @@ public class TrackerExpensesFragment extends Fragment {
 
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
+        int day = calendar.get(Calendar.DATE);
 
         String[] monthNames = new DateFormatSymbols().getMonths();
 
@@ -147,11 +146,12 @@ public class TrackerExpensesFragment extends Fragment {
         backward_expense = view.findViewById(R.id.backward_image_expense);
         forward_expense = view.findViewById(R.id.forward_image_expense);
 
-        months_expense.setText(monthNames[month] + ", " + year);
+        months_expense.setText(monthNames[month] + " " + day + ", " + year);
 
         backward_expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                trackerArrayList.clear();
                 calendar.add(Calendar.DATE, -1);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date currentDate = calendar.getTime();
@@ -159,7 +159,7 @@ public class TrackerExpensesFragment extends Fragment {
                 int year = calendar.get(Calendar.YEAR);
                 int day = calendar.get(Calendar.DATE);
                 String[] monthNames = new DateFormatSymbols().getMonths();
-                months_expense.setText(monthNames[month] + day + ", " + year);
+                months_expense.setText(monthNames[month] + " " + day + ", " + year);
                 selectedDate = format.format(currentDate);
                 trackerArrayList = getDayData(selectedDate);
                 adapter.updateRecyclerView(trackerArrayList);
@@ -189,6 +189,7 @@ public class TrackerExpensesFragment extends Fragment {
                             "",
                             ""
                     ));
+                    adapter.updateRecyclerView(trackerArrayList);
                 }else{
                     int sumOfDailyBudget = 0;
                     int sumOfExpense = 0;
@@ -207,14 +208,15 @@ public class TrackerExpensesFragment extends Fragment {
         forward_expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                trackerArrayList.clear();
                 calendar.add(Calendar.DATE, 1);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                Date currentDate = Calendar.getInstance().getTime();
+                Date currentDate = calendar.getTime();
                 int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
                 int day = calendar.get(Calendar.DATE);
                 String[] monthNames = new DateFormatSymbols().getMonths();
-                months_expense.setText(monthNames[month] + day + ", " + year);
+                months_expense.setText(monthNames[month] + " " + day + ", " + year);
                 selectedDate = format.format(currentDate);
                 trackerArrayList = getDayData(selectedDate);
                 adapter.updateRecyclerView(trackerArrayList);
@@ -244,6 +246,7 @@ public class TrackerExpensesFragment extends Fragment {
                             "",
                             ""
                     ));
+                    adapter.updateRecyclerView(trackerArrayList);
                 }else{
                     int sumOfDailyBudget = 0;
                     int sumOfExpense = 0;

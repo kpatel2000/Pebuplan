@@ -1,5 +1,7 @@
 package com.example.pebuplan.fragments.tracker;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,7 @@ import java.util.List;
 public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder> {
 
 
-    ArrayList<BudgetModel> TrackerList;
+    private ArrayList<BudgetModel> TrackerList;
     public TrackerAdapter(ArrayList<BudgetModel> trackerList){
         if (TrackerList == null){
             TrackerList = new ArrayList<>();
@@ -41,13 +43,33 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
         holder.category.setText(TrackerList.get(position).getCategory());
         if (!TrackerList.get(position).getDaily().equals("")){
             holder.budget.setText(TrackerList.get(position).getDaily());
+        }else{
+            holder.budget.setText("");
         }
         if (TrackerList.get(position).getExpense() != null){
             holder.expense.setText(TrackerList.get(position).getExpense());
-        }
+        }else
+            holder.expense.setText("");
+        holder.expense.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
     public void updateRecyclerView(ArrayList<BudgetModel> list){
-        TrackerList = list;
+        this.TrackerList.clear();
+        TrackerList.addAll(list);
         notifyDataSetChanged();
     }
     @Override

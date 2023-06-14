@@ -228,6 +228,7 @@ public class MonthlyBudgetFragment extends Fragment implements UpdateBudgetTable
                 months.setText(monthNames[currentMonth]);
                 selectedDate = monthNames[currentMonth];
                 monthlyBillsArrayList = getCurrentMonthData(selectedDate);
+                adapter_month.updateRecyclerView(monthlyBillsArrayList);
                 if (monthlyBillsArrayList.size() == 0){
                     monthlyBillsArrayList.add(new BudgetModel(
                             "Groceries",

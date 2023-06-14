@@ -156,7 +156,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/budget_total_tracker"
+                    android:id="@+id/budget_saving_total_tracker"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
