@@ -250,6 +250,7 @@
                        android:text="BUDGET : "/>
 
                    <EditText
+                       android:id="@+id/budget_et"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:focusable="false"
@@ -269,6 +270,7 @@
                        android:text="EXPENSE : "/>
 
                    <EditText
+                       android:id="@+id/expense_et"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:focusable="false"
@@ -288,6 +290,7 @@
                        android:text="SAVINGS : "/>
 
                    <EditText
+                       android:id="@+id/savings_et"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:focusable="false"

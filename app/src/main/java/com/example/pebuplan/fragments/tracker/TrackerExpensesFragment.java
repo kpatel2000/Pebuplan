@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class TrackerExpensesFragment extends Fragment implements Update{
+public class TrackerExpensesFragment extends Fragment{
 
 
     public TrackerExpensesFragment() {
@@ -57,6 +58,7 @@ public class TrackerExpensesFragment extends Fragment implements Update{
     TrackerAdapter adapter;
     ArrayList<BudgetModel> trackerArrayList = new ArrayList<>();
     TextView months_expense, totalBudget, totalExpense;
+    EditText expense, saving, budget;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
     ImageView forward_expense, backward_expense;
@@ -67,7 +69,6 @@ public class TrackerExpensesFragment extends Fragment implements Update{
     String selectedDate;
     List<DataEntry> dataEntries;
     HashMap<String, ArrayList<BudgetModel>> hashMap = new HashMap<>();
-    HashMap<Integer, String > incomeHashMap = new HashMap<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,9 @@ public class TrackerExpensesFragment extends Fragment implements Update{
         totalBudget = view.findViewById(R.id.budget_total_tracker);
         totalExpense = view.findViewById(R.id.expense_total_tracker);
         save = view.findViewById(R.id.save_tracker);
+        budget = view.findViewById(R.id.budget_et);
+        expense = view.findViewById(R.id.expense_et);
+        saving = view.findViewById(R.id.savings_et);
         if (trackerArrayList.size() == 0){
             trackerArrayList.add(new BudgetModel(
                     "Groceries",
@@ -114,17 +118,27 @@ public class TrackerExpensesFragment extends Fragment implements Update{
                     "",
                     ""
             ));
+            totalExpense.setText("");
+            totalBudget.setText("");
+            budget.setText("");
+            saving.setText("");
+            expense.setText("");
         }else{
             int sumOfDailyBudget = 0;
             int sumOfExpense = 0;
             for (int start=0;start<trackerArrayList.size();start++){
-                if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")) {
+                if (!trackerArrayList.get(start).getDaily().equals("")) {
                     sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                }
+                if (trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")){
                     sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
                 }
             }
             totalBudget.setText(String.valueOf(sumOfDailyBudget));
             totalExpense.setText(String.valueOf(sumOfExpense));
+            budget.setText(String.valueOf(sumOfDailyBudget));
+            expense.setText(String.valueOf(sumOfExpense));
+            saving.setText(String.valueOf(sumOfDailyBudget-sumOfExpense));
         }
 
         tracker_rec_view = view.findViewById(R.id.rec_view_tracker_expense);
@@ -192,21 +206,30 @@ public class TrackerExpensesFragment extends Fragment implements Update{
                             "",
                             ""
                     ));
+                    totalExpense.setText("");
+                    totalBudget.setText("");
+                    budget.setText("");
+                    saving.setText("");
+                    expense.setText("");
                     adapter.updateRecyclerView(trackerArrayList);
                 }else{
                     int sumOfDailyBudget = 0;
                     int sumOfExpense = 0;
                     for (int start=0;start<trackerArrayList.size();start++){
-                        if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null) {
+                        if (!trackerArrayList.get(start).getDaily().equals("")) {
                             sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                        }
+                        if (trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")){
                             sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
                         }
                     }
                     totalBudget.setText(String.valueOf(sumOfDailyBudget));
                     totalExpense.setText(String.valueOf(sumOfExpense));
+                    budget.setText(String.valueOf(sumOfDailyBudget));
+                    expense.setText(String.valueOf(sumOfExpense));
+                    saving.setText(String.valueOf(sumOfDailyBudget-sumOfExpense));
                 }
-//                setPieChart(selectedDate);
-
+                setPieChart(selectedDate);
             }
         });
 
@@ -251,26 +274,52 @@ public class TrackerExpensesFragment extends Fragment implements Update{
                             "",
                             ""
                     ));
+                    totalExpense.setText("");
+                    totalBudget.setText("");
+                    budget.setText("");
+                    saving.setText("");
+                    expense.setText("");
                     adapter.updateRecyclerView(trackerArrayList);
                 }else{
                     int sumOfDailyBudget = 0;
                     int sumOfExpense = 0;
                     for (int start=0;start<trackerArrayList.size();start++){
-                        if (!trackerArrayList.get(start).getDaily().equals("") && trackerArrayList.get(start).getExpense() != null) {
+                        if (!trackerArrayList.get(start).getDaily().equals("")) {
                             sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                        }
+                        if (trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")){
                             sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
                         }
                     }
                     totalBudget.setText(String.valueOf(sumOfDailyBudget));
                     totalExpense.setText(String.valueOf(sumOfExpense));
+                    budget.setText(String.valueOf(sumOfDailyBudget));
+                    expense.setText(String.valueOf(sumOfExpense));
+                    saving.setText(String.valueOf(sumOfDailyBudget-sumOfExpense));
                 }
-//                setPieChart(selectedDate);
+                setPieChart(selectedDate);
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int sumOfDailyBudget = 0;
+                int sumOfExpense = 0;
+                for (int start=0;start<trackerArrayList.size();start++){
+                    if (!trackerArrayList.get(start).getDaily().equals("")) {
+                        sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
+                    }
+                    if (trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")){
+                        sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
+                    }
+                }
+                int savings = sumOfDailyBudget - sumOfExpense;
+                String savingsOfMonth = preferences.getString(monthNames[month]+"_saving","NotFound");
+                if (!savingsOfMonth.equals("NotFound")){
+                    savings += Integer.parseInt(savingsOfMonth);
+                }
+                editor.putString(monthNames[month]+"_saving",String.valueOf(savings));
                 Gson gson = new Gson();
                 hashMap.put(selectedDate, trackerArrayList);
                 String hashMapString = gson.toJson(hashMap);
@@ -285,13 +334,10 @@ public class TrackerExpensesFragment extends Fragment implements Update{
     private void setPieChart(String selectedDate) {
         trackerArrayList = getDayData(selectedDate);
         if (trackerArrayList.isEmpty()){
-            pieChartExpense.clear();
             Toast.makeText(requireContext(),"Please enter your budget data",Toast.LENGTH_SHORT).show();
-            dataEntries = new ArrayList<>();
-            dataEntries.add(new ValueDataEntry("No Value",0));
-            Pie pieExpense = AnyChart.pie();
-            pieExpense.data(dataEntries);
-            pieChartExpense.setChart(pieExpense);
+            if (dataEntries != null){
+                pieChartExpense.clear();
+            }
         }else{
             dataEntries = new ArrayList<>();
             for (int start=0;start<trackerArrayList.size();start++){
@@ -300,8 +346,8 @@ public class TrackerExpensesFragment extends Fragment implements Update{
                     dataEntries.add(new ValueDataEntry(trackerArrayList.get(start).getCategory(), budget));
                 }
             }
-            Pie pieExpense = AnyChart.pie();
             if (dataEntries.size() != 0) {
+                Pie pieExpense = AnyChart.pie();
                 pieExpense.data(dataEntries);
                 pieChartExpense.setChart(pieExpense);
             }

@@ -24,34 +24,33 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
 
 
     private ArrayList<BudgetModel> TrackerList;
-    private Update update;
-    public TrackerAdapter(ArrayList<BudgetModel> trackerList,Update update){
-        if (TrackerList == null){
+
+    public TrackerAdapter(ArrayList<BudgetModel> trackerList) {
+        if (TrackerList == null) {
             TrackerList = new ArrayList<>();
         }
         TrackerList = trackerList;
-        this.update = update;
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tracker_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tracker_item, parent, false);
         return new TrackerAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.category.setText(TrackerList.get(position).getCategory());
-        if (!TrackerList.get(position).getDaily().equals("")){
+        if (!TrackerList.get(position).getDaily().equals("")) {
             holder.budget.setText(TrackerList.get(position).getDaily());
-        }else{
+        } else {
             holder.budget.setText("");
         }
-        if (TrackerList.get(position).getExpense() != null){
+        if (TrackerList.get(position).getExpense() != null) {
             holder.expense.setText(TrackerList.get(position).getExpense());
-        }else
+        } else
             holder.expense.setText("");
         holder.expense.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,11 +70,13 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
             }
         });
     }
-    public void updateRecyclerView(ArrayList<BudgetModel> list){
+
+    public void updateRecyclerView(ArrayList<BudgetModel> list) {
         this.TrackerList.clear();
         TrackerList.addAll(list);
         notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
         return TrackerList.size();
@@ -95,8 +96,3 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
         }
     }
 }
-
-interface Update{
-    void updateList(ArrayList<BudgetModel> newList);
-}
-

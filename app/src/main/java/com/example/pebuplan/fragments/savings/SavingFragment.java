@@ -19,8 +19,10 @@ import com.example.pebuplan.R;
 import com.example.pebuplan.activity.HomeActivity;
 
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,7 +54,7 @@ public class SavingFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ImageView back_image = view.findViewById(R.id.back_image);
-        annual_total = view.findViewById(R.id.budget_total_tracker);
+        annual_total = view.findViewById(R.id.budget_saving_total_tracker);
 
         TextView title = view.findViewById(R.id.title);
         title.setText("Savings");
@@ -77,10 +79,19 @@ public class SavingFragment extends Fragment {
            }else{
                days = 31;
            }
-               String data = sharedPref.getString(monthNames[i] + "_Total_Remains", "No Data Found");
-               dataList.add(new DataModel(monthNames[i], String.valueOf(days), data));
-               if(!data.equals("No Data Found")){
-                   String result = data.replace(String.valueOf("₱"), "");
+            String month = monthNames[i];
+            String savingsOfMonth = sharedPref.getString(month+"_saving","NotFound");
+            if (!savingsOfMonth.equals("NotFound")){
+                dataList.add(new DataModel(
+                        monthNames[i],
+                        String.valueOf(days),
+                        savingsOfMonth
+                ));
+            }
+//               String data = sharedPref.getString(monthNames[i] + "_Total_Remains", "No Data Found");
+//               dataList.add(new DataModel(monthNames[i], String.valueOf(days), data));
+               if(!savingsOfMonth.equals("NotFound")){
+                   String result = savingsOfMonth.replace(String.valueOf("₱"), "");
                    total += Integer.parseInt(result);
                }
         }
@@ -90,7 +101,6 @@ public class SavingFragment extends Fragment {
 //        dataList.add(new DataModel("Total", String.valueOf(365),"₱" +  String.valueOf(total)));
 
 //        dataList.add(new DataModel("April", "30", "₱200"));
-
         // Set adapter
         adapter = new SavingsAdapter(dataList);
         recyclerView.setAdapter(adapter);
