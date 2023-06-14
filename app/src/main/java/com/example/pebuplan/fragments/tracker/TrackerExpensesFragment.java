@@ -61,7 +61,6 @@ public class TrackerExpensesFragment extends Fragment {
     ImageView forward_expense, backward_expense;
     int currentYear;
     int currentMonth;
-    int currentDay;
     String selectedDate;
     List<DataEntry> dataEntries;
     HashMap<String, ArrayList<BudgetModel>> hashMap = new HashMap<>();
@@ -259,17 +258,17 @@ public class TrackerExpensesFragment extends Fragment {
                     totalBudget.setText(String.valueOf(sumOfDailyBudget));
                     totalExpense.setText(String.valueOf(sumOfExpense));
                 }
+                setPieChart(selectedDate);
             }
         });
         return view;
     }
 
-/*
-    private void setPieChart(int currentMonth) {
-        int income = getIncomeData(currentMonth);
-        int rest = income;
-        if (income == 0){
-            Toast.makeText(requireContext(),"Please Enter Monthly Income first",Toast.LENGTH_SHORT).show();
+
+    private void setPieChart(String selectedDate) {
+        trackerArrayList = getDayData(selectedDate);
+        if (trackerArrayList.isEmpty()){
+            Toast.makeText(requireContext(),"Please enter your budget data",Toast.LENGTH_SHORT).show();
             dataEntries = new ArrayList<>();
             dataEntries.add(new ValueDataEntry("No Value",0));
             Pie pieExpense = AnyChart.pie();
@@ -279,17 +278,11 @@ public class TrackerExpensesFragment extends Fragment {
             }
         }else{
             dataEntries = new ArrayList<>();
-            for (int start=0;start<monthlyBillsArrayList.size();start++){
-                if (!monthlyBillsArrayList.get(start).getExpense().equals("")) {
-                    int spent = Integer.parseInt(monthlyBillsArrayList.get(start).getExpense());
-                    rest -= spent;
-                    float percentage =((float)spent/income)*100;
-                    dataEntries.add(new ValueDataEntry(monthlyBillsArrayList.get(start).getCategory(), percentage));
+            for (int start=0;start<trackerArrayList.size();start++){
+                if (!trackerArrayList.get(start).getDaily().equals("")) {
+                    int budget = Integer.parseInt(trackerArrayList.get(start).getDaily());
+                    dataEntries.add(new ValueDataEntry(trackerArrayList.get(start).getCategory(), budget));
                 }
-            }
-            if (rest != 0){
-                float percentage = ((float)rest/income)*100;
-                dataEntries.add(new ValueDataEntry("Remaining", percentage));
             }
             Pie pieExpense = AnyChart.pie();
             if (dataEntries.size() != 0) {
@@ -298,13 +291,14 @@ public class TrackerExpensesFragment extends Fragment {
             }
         }
     }
-*/
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         pieChartExpense = view.findViewById(R.id.pieChartExpense);
+        setPieChart(selectedDate);
     }
     private ArrayList<BudgetModel> getDayData(String selectedDate) {
         Gson gson = new Gson();
