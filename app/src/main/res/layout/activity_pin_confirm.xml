@@ -42,7 +42,7 @@
         android:id="@+id/forget_pin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forget Pin?"
+        android:text="Forgot Pin?"
         android:layout_marginTop="5dp"
         android:textColor="#000000"
         android:textSize="16sp"

@@ -35,7 +35,7 @@
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Enter your university"
+        android:text="What is your favourite color?"
         app:layout_constraintStart_toStartOf="@+id/question1_et"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
@@ -63,7 +63,7 @@
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Enter your pet name"
+        android:text="In what city you were born?"
         app:layout_constraintStart_toStartOf="@+id/question1_et"
         app:layout_constraintTop_toBottomOf="@+id/question1_et" />
     <EditText

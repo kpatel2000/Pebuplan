@@ -475,8 +475,8 @@ public class WeeklyBudget extends Fragment implements UpdateBudgetTable{
         }
         Calendar calendar = Calendar.getInstance();
         int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int daily = Integer.parseInt(budgetModel.getWeekly())/7;
-        BudgetModel newBudgetModel = new BudgetModel(budgetModel.getCategory(),budgetModel.getWeekly(),String.valueOf(daily),String.valueOf(daily*lastDayOfMonth));
+        int daily = Integer.parseInt(budgetModel.getDaily())/7;
+        BudgetModel newBudgetModel = new BudgetModel(budgetModel.getCategory(),budgetModel.getDaily(),String.valueOf(daily),String.valueOf(daily*lastDayOfMonth));
         weeklyBillArrayList.add(newBudgetModel);
         adapter_week.update(weeklyBillArrayList);
     }

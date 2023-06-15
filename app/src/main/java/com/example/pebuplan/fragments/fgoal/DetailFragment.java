@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -47,7 +48,9 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
     EditText goal_amount, target_date, monthly_savings;
 
     String imagepath;
+    int target_day;
     int target_month;
+    int target_year;
     int calculatedMonthlySavings;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -118,6 +121,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
                     int month = calendar.get(Calendar.MONTH);
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
                     DatePickerDialog datePickerDialog = new DatePickerDialog( getContext(), DetailFragment.this, year, month, day);
+                    datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
                     datePickerDialog.show();
 
                     target_date.clearFocus();
@@ -130,25 +134,48 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(requireContext(),"Data Saved! Your monthly savings is calculated",Toast.LENGTH_SHORT).show();
-
                 String goal = goal_amount.getText().toString();
                 Calendar cal = Calendar.getInstance();
                 int curr_month = cal.get(Calendar.MONTH);
-                int savings;
-                if(curr_month > target_month){
-                    savings = Integer.parseInt(goal)/(curr_month - target_month);
-                }else{
-                    savings = Integer.parseInt(goal)/(target_month - curr_month);
+                int curr_day = cal.get(Calendar.DATE);
+                int curr_year = cal.get(Calendar.YEAR);
+                int resyear, resmonth,resday,savings=0;
+                resyear = target_year - curr_year;
+                if (target_month >= curr_month) {
+                    resmonth = target_month - curr_month;
+                } else {
+                    resmonth = target_month - curr_month;
+                    resmonth = 12 + resmonth;
+                    resyear--;
                 }
-
-                monthly_savings.setText(String.valueOf(savings));
-
-                editor.putString(value+"_details_goalAmount",goal_amount.getText().toString());
-                editor.putString(value+"_details_target_date",target_date.getText() != null? target_date.getText().toString():"");
-                editor.putString(value+"_details_monthly_contribution",String.valueOf(savings));
-                editor.putString(value+"_details_image",imagepath);
-                editor.apply();
+                if (target_day >= curr_day) {
+                    resday = target_day - curr_day;
+                } else {
+                    resday = target_day - curr_day;
+                    resday = 31 + resday;
+                    if (resmonth == 0) {
+                        resmonth = 11;
+                        resyear--;
+                    } else {
+                        resmonth--;
+                    }
+                }
+                if (resmonth<=0 && resyear<0) {
+                    Toast.makeText(requireContext(), "Please select month greater than current month", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (resyear != 0){
+                        resmonth += resyear*12;
+                    }
+                    savings = Integer.parseInt(goal)/resmonth;
+                    monthly_savings.setText(String.valueOf(savings));
+                    editor.putString(value+"_details_goalAmount",goal_amount.getText().toString());
+                    editor.putString(value+"_details_target_date",target_date.getText() != null? target_date.getText().toString():"");
+                    editor.putString(value+"_details_monthly_contribution",String.valueOf(savings));
+                    editor.putString(value+"_details_image",imagepath);
+                    editor.apply();
+                    Toast.makeText(requireContext(),"Data Saved! Your monthly savings is calculated",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -221,6 +248,8 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         target_date.setText(String.format("%d/%d/%d", month + 1, dayOfMonth, year));
+        target_year = year;
         target_month = month;
+        target_day = dayOfMonth;
     }
 }

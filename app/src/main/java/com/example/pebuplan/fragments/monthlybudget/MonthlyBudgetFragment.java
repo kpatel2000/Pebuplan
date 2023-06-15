@@ -338,8 +338,8 @@ public class MonthlyBudgetFragment extends Fragment implements UpdateBudgetTable
         }
         Calendar calendar = Calendar.getInstance();
         int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int daily = Integer.parseInt(budgetModel.getMonthly())/lastDayOfMonth;
-        BudgetModel newBudgetModel = new BudgetModel(budgetModel.getCategory(),budgetModel.getMonthly(),String.valueOf(daily),String.valueOf(daily*7));
+        int daily = Integer.parseInt(budgetModel.getDaily())/lastDayOfMonth;
+        BudgetModel newBudgetModel = new BudgetModel(budgetModel.getCategory(),budgetModel.getDaily(),String.valueOf(daily),String.valueOf(daily*7));
         monthlyBillsArrayList.add(newBudgetModel);
         adapter_month.update(monthlyBillsArrayList);
     }
