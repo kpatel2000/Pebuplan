@@ -24,6 +24,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class BudgetFragment extends Fragment {
@@ -69,9 +71,11 @@ public class BudgetFragment extends Fragment {
 
         BudgetAdapter adapter = new BudgetAdapter(this);
         viewPager.setAdapter(adapter);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        String[] monthNames = new DateFormatSymbols().getMonths();
 
-        String incomeString = preferences.getString("Income", "IncomeNotFound");
-        if (incomeString == null) {
+        String incomeString = preferences.getString(monthNames[currentMonth]+"_income", "IncomeNotFound");
+        if (incomeString.equals("IncomeNotFound")) {
             incomeInput.setText("");
             incomeInput.setHint("Income");
         } else {
@@ -91,7 +95,7 @@ public class BudgetFragment extends Fragment {
             public void onClick(View v) {
                 String income = incomeInput.getText().toString();
                 if (!income.equals("")) {
-                    editor.putString("Income", income);
+                    editor.putString(monthNames[currentMonth]+"_income", income);
                     editor.apply();
                 }
             }

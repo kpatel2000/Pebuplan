@@ -24,6 +24,9 @@ import com.example.pebuplan.fragments.tipids.TipidTips;
 import com.example.pebuplan.fragments.tracker.TrackerExpensesFragment;
 import com.example.pebuplan.fragments.tracker.TrackerMainFragment;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -41,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(fragDetails.equals("m_budget")){
 //            BudgetFragment fragment = new BudgetFragment();
-            if(sharedPreferences.getString("Income","").equals("")){
+            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+            String[] monthNames = new DateFormatSymbols().getMonths();
+            if(sharedPreferences.getString(monthNames[currentMonth]+ "_income","").equals("")){
                 IncomeFragment fragment = new IncomeFragment();
                 transaction(fragment);
             }else {

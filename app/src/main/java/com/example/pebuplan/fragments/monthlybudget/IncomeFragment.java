@@ -22,6 +22,8 @@ import com.example.pebuplan.activity.HomeActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class IncomeFragment extends Fragment {
@@ -50,6 +52,8 @@ public class IncomeFragment extends Fragment {
         preferences = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
         editor = preferences.edit();
 
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        String[] monthNames = new DateFormatSymbols().getMonths();
         incomeInput = view.findViewById(R.id.income_budget_planner);
         submit = view.findViewById(R.id.submit_income);
 
@@ -60,7 +64,7 @@ public class IncomeFragment extends Fragment {
             public void onClick(View view) {
                 String income = incomeInput.getText().toString();
                 if (!income.equals("")) {
-                    editor.putString("Income", income);
+                    editor.putString(monthNames[currentMonth]+"_income", income);
                     editor.apply();
 
                     BudgetFragment fragment= new BudgetFragment();

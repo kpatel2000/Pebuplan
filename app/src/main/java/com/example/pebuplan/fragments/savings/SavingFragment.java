@@ -102,16 +102,16 @@ public class SavingFragment extends Fragment {
                    totalExpenseOfMonth += Integer.parseInt(expenseOfDate);
                }
            }
-           String income = sharedPref.getString("Income","0");
+           String income = sharedPref.getString(monthNames[i]+"_income","0");
            int savingsOfMonth = 0;
            if (!income.equals("0")){
               savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
+               dataList.add(new DataModel(
+                       monthNames[i],
+                       String.valueOf(days),
+                       String.valueOf(savingsOfMonth)
+               ));
            }
-            dataList.add(new DataModel(
-                        monthNames[i],
-                        String.valueOf(days),
-                        String.valueOf(savingsOfMonth)
-           ));
 
 //               String data = sharedPref.getString(monthNames[i] + "_Total_Remains", "No Data Found");
 //               dataList.add(new DataModel(monthNames[i], String.valueOf(days), data));

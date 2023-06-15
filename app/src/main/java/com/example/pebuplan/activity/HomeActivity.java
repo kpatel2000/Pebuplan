@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String[] monthNames = new DateFormatSymbols().getMonths();
         int days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         int year = calendar.get(Calendar.YEAR);
-        String income = prefs.getString("Income","0").replace("₱", "");
+        String income = prefs.getString(monthNames[currentMonth]+"_income","0").replace("₱", "");
         int month = currentMonth+1;
         for (int start=1;start<=days;start++){
             String selectedDate;
@@ -222,7 +222,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 int days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
                 int year = calendar.get(Calendar.YEAR);
                 int totalExpenseOfMonth = 0;
-                String income = prefs.getString("Income","0").replace("₱", "");
+                String income = prefs.getString(monthNames[currentMonth]+"_income","0").replace("₱", "");
                 int month = currentMonth+1;
                 for (int start=1;start<=days;start++){
                     String selectedDate;
@@ -266,7 +266,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 String[] monthNames = new DateFormatSymbols().getMonths();
                 months.setText(monthNames[currentMonth]);
                 int totalExpenseOfMonth = 0;
-                String income = prefs.getString("Income","0").replace("₱", "");
+                String income = prefs.getString(monthNames[currentMonth]+"_income","0").replace("₱", "");
                 int month = currentMonth+1;
                 for (int start=1;start<=days;start++){
                     String selectedDate;
