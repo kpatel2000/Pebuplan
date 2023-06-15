@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class TrackerExpensesFragment extends Fragment{
+public class TrackerExpensesFragment extends Fragment implements Update{
 
 
     public TrackerExpensesFragment() {
@@ -143,7 +143,7 @@ public class TrackerExpensesFragment extends Fragment{
 
         tracker_rec_view = view.findViewById(R.id.rec_view_tracker_expense);
         tracker_rec_view.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new TrackerAdapter(trackerArrayList);
+        adapter = new TrackerAdapter(trackerArrayList,this);
         tracker_rec_view.setAdapter(adapter);
 
 
@@ -304,22 +304,13 @@ public class TrackerExpensesFragment extends Fragment{
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int sumOfDailyBudget = 0;
                 int sumOfExpense = 0;
                 for (int start=0;start<trackerArrayList.size();start++){
-                    if (!trackerArrayList.get(start).getDaily().equals("")) {
-                        sumOfDailyBudget += Integer.parseInt(trackerArrayList.get(start).getDaily());
-                    }
                     if (trackerArrayList.get(start).getExpense() != null && !trackerArrayList.get(start).getExpense().equals("")){
                         sumOfExpense += Integer.parseInt(trackerArrayList.get(start).getExpense());
                     }
                 }
-                int savings = sumOfDailyBudget - sumOfExpense;
-                String savingsOfMonth = preferences.getString(monthNames[month]+"_saving","NotFound");
-                if (!savingsOfMonth.equals("NotFound")){
-                    savings += Integer.parseInt(savingsOfMonth);
-                }
-                editor.putString(monthNames[month]+"_saving",String.valueOf(savings));
+                editor.putString(selectedDate+"_expense",String.valueOf(sumOfExpense));
                 Gson gson = new Gson();
                 hashMap.put(selectedDate, trackerArrayList);
                 String hashMapString = gson.toJson(hashMap);
@@ -378,4 +369,9 @@ public class TrackerExpensesFragment extends Fragment{
         return new ArrayList<>();
     }
 
+    @Override
+    public void update(ArrayList<BudgetModel> newList) {
+        this.trackerArrayList.clear();
+        this.trackerArrayList.addAll(newList);
+    }
 }

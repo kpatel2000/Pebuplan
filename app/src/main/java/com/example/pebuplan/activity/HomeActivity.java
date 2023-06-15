@@ -135,13 +135,40 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Calendar calendar = Calendar.getInstance();
 
+        int totalExpenseOfMonth=0;
         currentMonth = calendar.get(Calendar.MONTH);
         String[] monthNames = new DateFormatSymbols().getMonths();
-
-
+        int days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(Calendar.YEAR);
         String income = prefs.getString("Income","0").replace("₱", "");
-        String savings = prefs.getString(monthNames[currentMonth] + "_saving","0").replace("₱", "");
-        String expenses = String.valueOf(Integer.parseInt(income)-Integer.parseInt(savings));
+        int month = currentMonth+1;
+        for (int start=1;start<=days;start++){
+            String selectedDate;
+            if (start < 10){
+                if (month<10) {
+                    selectedDate = year + "-" + "0" + month + "-" + "0"+start;
+                }else{
+                    selectedDate = year + "-" + month + "-" + "0"+start;
+                }
+            }else{
+                if (month<10) {
+                    selectedDate = year + "-" + "0" + month + "-" + start;
+                }else{
+                    selectedDate = year + "-" + month + "-" + start;
+                }
+            }
+            String expenseOfDate = prefs.getString(selectedDate+"_expense","NotFound");
+            if (!expenseOfDate.equals("NotFound")) {
+                totalExpenseOfMonth += Integer.parseInt(expenseOfDate);
+            }
+        }
+        int savingsOfMonth = 0;
+        if (!income.equals("0")){
+            savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
+        }
+
+        String savings = String.valueOf(savingsOfMonth).replace("₱", "");
+        String expenses = String.valueOf(totalExpenseOfMonth);
 
         addPieChart(income,savings,expenses);
         final Handler handler = new Handler();
@@ -192,9 +219,40 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 currentMonth = calendar.get(Calendar.MONTH);
                 String[] monthNames = new DateFormatSymbols().getMonths();
                 months.setText(monthNames[currentMonth]);
+                int days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                int totalExpenseOfMonth = 0;
                 String income = prefs.getString("Income","0").replace("₱", "");
-                String savings = prefs.getString(monthNames[currentMonth] + "_saving","0").replace("₱", "");
-                String expenses = String.valueOf(Integer.parseInt(income)-Integer.parseInt(savings));
+                int month = currentMonth+1;
+                for (int start=1;start<=days;start++){
+                    String selectedDate;
+                    if (start < 10){
+                        if (month<10) {
+                            selectedDate = year + "-" + "0" + month + "-" + "0"+start;
+                        }else{
+                            selectedDate = year + "-" + month + "-" + "0"+start;
+                        }
+                    }else{
+                        if (month<10) {
+                            selectedDate = year + "-" + "0" + month + "-" + start;
+                        }else{
+                            selectedDate = year + "-" + month + "-" + start;
+                        }
+                    }
+                    String expenseOfDate = prefs.getString(selectedDate+"_expense","NotFound");
+                    if (!expenseOfDate.equals("NotFound")) {
+                        totalExpenseOfMonth += Integer.parseInt(expenseOfDate);
+                    }
+                }
+                int savingsOfMonth = 0;
+                if (!income.equals("0")){
+                    savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
+                }
+                String savings = String.valueOf(savingsOfMonth).replace("₱", "");
+                String expenses = String.valueOf(totalExpenseOfMonth).replace("₱","");
+                income_txt.setText("INCOME : " + income);
+                expenses_txt.setText("EXPENSES : " + expenses);
+                savings_txt.setText("SAVINGS : " + savings);
                 addPieChart(income,savings,expenses);
             }
         });
@@ -207,10 +265,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 currentMonth = calendar.get(Calendar.MONTH);
                 String[] monthNames = new DateFormatSymbols().getMonths();
                 months.setText(monthNames[currentMonth]);
-                selectedDate = monthNames[currentMonth];
+                int totalExpenseOfMonth = 0;
                 String income = prefs.getString("Income","0").replace("₱", "");
-                String savings = prefs.getString(monthNames[currentMonth] + "_saving","0").replace("₱", "");
-                String expenses = String.valueOf(Integer.parseInt(income)-Integer.parseInt(savings));
+                int month = currentMonth+1;
+                for (int start=1;start<=days;start++){
+                    String selectedDate;
+                    if (start < 10){
+                        if (month<10) {
+                            selectedDate = year + "-" + "0" + month + "-" + "0"+start;
+                        }else{
+                            selectedDate = year + "-" + month + "-" + "0"+start;
+                        }
+                    }else{
+                        if (month<10) {
+                            selectedDate = year + "-" + "0" + month + "-" + start;
+                        }else{
+                            selectedDate = year + "-" + month + "-" + start;
+                        }
+                    }
+                    String expenseOfDate = prefs.getString(selectedDate+"_expense","NotFound");
+                    if (!expenseOfDate.equals("NotFound")) {
+                        totalExpenseOfMonth += Integer.parseInt(expenseOfDate);
+                    }
+                }
+                int savingsOfMonth = 0;
+                if (!income.equals("0")){
+                    savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
+                }
+
+                String savings = String.valueOf(savingsOfMonth).replace("₱", "");
+                String expenses = String.valueOf(totalExpenseOfMonth);
+                income_txt.setText("INCOME : " + income);
+                expenses_txt.setText("EXPENSES : " + expenses);
+                savings_txt.setText("SAVINGS : " + savings);
                 addPieChart(income,savings,expenses);
             }
         });
@@ -218,7 +305,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         income_txt.setText("INCOME : " + income);
         expenses_txt.setText("EXPENSES : " + expenses);
         savings_txt.setText("SAVINGS : " + savings);
-
 
         m_budget.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,6 +409,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     void addPieChart(String income, String expenses, String savings){
+        pieChart.clearChart();
         pieChart.addPieSlice(
                 new PieModel(
                         "Budget",

@@ -24,12 +24,14 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
 
 
     private ArrayList<BudgetModel> TrackerList;
+    private Update update;
 
-    public TrackerAdapter(ArrayList<BudgetModel> trackerList) {
+    public TrackerAdapter(ArrayList<BudgetModel> trackerList, Update update) {
         if (TrackerList == null) {
             TrackerList = new ArrayList<>();
         }
         TrackerList = trackerList;
+        this.update=update;
     }
 
 
@@ -62,6 +64,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String expense = holder.expense.getText().toString();
                 TrackerList.get(holder.getAdapterPosition()).setExpense(expense);
+                update.update(TrackerList);
             }
 
             @Override
@@ -95,4 +98,8 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
             expense = itemView.findViewById(R.id.expense_data_tracker);
         }
     }
+}
+
+interface Update{
+    void update(ArrayList<BudgetModel> newList);
 }

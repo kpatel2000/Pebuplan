@@ -69,6 +69,7 @@ public class SavingFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
 
         for(int i =0; i <= 11; i++){
+            int totalExpenseOfMonth = 0;
             int days = 30;
            if(i % 2 != 0) {
                if(i != 1){
@@ -79,21 +80,43 @@ public class SavingFragment extends Fragment {
            }else{
                days = 31;
            }
-            String month = monthNames[i];
-            String savingsOfMonth = sharedPref.getString(month+"_saving","NotFound");
-            if (!savingsOfMonth.equals("NotFound")){
-                dataList.add(new DataModel(
+           int year = calendar.get(Calendar.YEAR);
+           int month=i+1;
+           for (int start=1;start<=days;start++){
+               String selectedDate;
+               if (start < 10){
+                   if (i<10) {
+                       selectedDate = year + "-" + "0" + month + "-" + "0"+start;
+                   }else{
+                       selectedDate = year + "-" + month + "-" + "0"+start;
+                   }
+               }else{
+                   if (i<10) {
+                       selectedDate = year + "-" + "0" + month + "-" + start;
+                   }else{
+                       selectedDate = year + "-" + month + "-" + start;
+                   }
+               }
+               String expenseOfDate = sharedPref.getString(selectedDate+"_expense","NotFound");
+               if (!expenseOfDate.equals("NotFound")) {
+                   totalExpenseOfMonth += Integer.parseInt(expenseOfDate);
+               }
+           }
+           String income = sharedPref.getString("Income","0");
+           int savingsOfMonth = 0;
+           if (!income.equals("0")){
+              savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
+           }
+            dataList.add(new DataModel(
                         monthNames[i],
                         String.valueOf(days),
-                        savingsOfMonth
-                ));
-            }
+                        String.valueOf(savingsOfMonth)
+           ));
+
 //               String data = sharedPref.getString(monthNames[i] + "_Total_Remains", "No Data Found");
 //               dataList.add(new DataModel(monthNames[i], String.valueOf(days), data));
-               if(!savingsOfMonth.equals("NotFound")){
-                   String result = savingsOfMonth.replace(String.valueOf("₱"), "");
-                   total += Integer.parseInt(result);
-               }
+            String result = String.valueOf(savingsOfMonth).replace(String.valueOf("₱"), "");
+            total += Integer.parseInt(result);
         }
 
         annual_total.setText("₱ "+String.valueOf(total));
