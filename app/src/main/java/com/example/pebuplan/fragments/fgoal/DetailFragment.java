@@ -79,6 +79,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
         goal_amount = view.findViewById(R.id.goal_amount);
         target_date = view.findViewById(R.id.target_date);
         monthly_savings = view.findViewById(R.id.monthly_savings);
+        upload_image = view.findViewById(R.id.upload_image);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("plan", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -91,14 +92,14 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
             goal_amount.setText(goalAmount);
             target_date.setText(months);
             monthly_savings.setText(savings);
-            upload_image.setImageBitmap(decodeBase64(image));
+            Bitmap bitmap = decodeBase64(image);
+            upload_image.setImageBitmap(bitmap);
         }else if(!goalAmount.equals("0") && !months.equals("0") && !savings.equals("0")){
             goal_amount.setText(goalAmount);
             target_date.setText(months);
             monthly_savings.setText(savings);
         }
 
-        upload_image = view.findViewById(R.id.upload_image);
         upload_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
