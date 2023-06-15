@@ -96,13 +96,12 @@
                 android:layout_margin="10dp"
                 android:elevation="10dp"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/f_goals"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -111,13 +110,47 @@
 
                     <org.eazegraph.lib.charts.PieChart
                         android:id="@+id/piechart"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_weight="1"
-                        android:padding="6dp" />
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:padding="6dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/main_timeline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Month"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_goneMarginTop="10dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/forward_image"
+                        app:layout_constraintStart_toEndOf="@id/main_backward_image"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/main_backward_image"
+                        android:layout_width="24dp"
+                        android:layout_height="31dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/left_budget"
+                        app:layout_constraintStart_toEndOf="@id/piechart"
+                        app:layout_constraintBottom_toBottomOf="@+id/main_timeline"
+                        app:layout_constraintEnd_toStartOf="@id/main_timeline"
+                        app:layout_constraintTop_toTopOf="@+id/main_timeline" />
+
+                    <ImageView
+                        android:id="@+id/main_forward_image"
+                        android:layout_width="24dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/right_budget"
+                        app:layout_constraintBottom_toBottomOf="@+id/main_timeline"
+                        app:layout_constraintStart_toEndOf="@id/main_timeline"
+                        app:layout_constraintTop_toTopOf="@+id/main_timeline" />
 
 
                     <LinearLayout
@@ -126,7 +159,11 @@
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/main_timeline">
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,24 +257,31 @@
 
                     </LinearLayout>
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewGraph"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/m_budget"
                 style="@style/GreenCardView"
                 android:layout_width="110dp"
                 android:layout_height="118dp"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="20dp"
                 android:clickable="true"
                 android:padding="16dp"
                 android:visibility="visible"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
                 app:strokeColor="@color/green"
                 app:strokeWidth="2dp">
 
@@ -274,7 +318,7 @@
                 style="@style/GreenCardView"
                 android:layout_width="110dp"
                 android:layout_height="118dp"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:clickable="true"
                 android:padding="16dp"
                 android:visibility="visible"
@@ -364,15 +408,15 @@
                 style="@style/GreenCardView"
                 android:layout_width="110dp"
                 android:layout_height="118dp"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:clickable="true"
                 android:padding="16dp"
                 android:visibility="visible"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/i_tracker"
-                app:layout_constraintStart_toEndOf="@+id/i_tracker"
-                app:layout_constraintTop_toTopOf="@+id/i_tracker"
+                app:layout_constraintBottom_toBottomOf="@id/i_tracker"
+                app:layout_constraintStart_toEndOf="@id/i_tracker"
+                app:layout_constraintTop_toTopOf="@id/i_tracker"
                 app:strokeColor="@color/green"
                 app:strokeWidth="2dp">
 
@@ -448,6 +492,10 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

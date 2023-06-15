@@ -23,12 +23,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.pebuplan.R;
+import com.example.pebuplan.model.BudgetModel;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -41,12 +43,22 @@ import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private VideoView videoView;
     private SeekBar seekBar;
+
+    TextView months;
+
+    int currentMonth;
+
+    ImageView forward, backward;
+
+    String selectedDate;
 
     //public DrawerLayout drawer;
 
@@ -97,6 +109,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         seekBar = findViewById(R.id.seek_bar);
         pieChart = findViewById(R.id.piechart);
 
+        months = findViewById(R.id.main_timeline);
+        backward = findViewById(R.id.main_backward_image);
+        forward = findViewById(R.id.main_forward_image);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -119,14 +135,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Calendar calendar = Calendar.getInstance();
 
-        int month = calendar.get(Calendar.MONTH);
+        currentMonth = calendar.get(Calendar.MONTH);
         String[] monthNames = new DateFormatSymbols().getMonths();
 
 
-        String income = prefs.getString(monthNames[month] + "_Total_Budget","0").replace("₱", "");
-        String expenses = prefs.getString(monthNames[month] + "_Total_Spent","0").replace("₱", "");
-        String savings = prefs.getString(monthNames[month] + "_Total_Remains","0").replace("₱", "");
+        String income = prefs.getString("Income","0").replace("₱", "");
+        String savings = prefs.getString(monthNames[currentMonth] + "_saving","0").replace("₱", "");
+        String expenses = String.valueOf(Integer.parseInt(income)-Integer.parseInt(savings));
 
+        addPieChart(income,savings,expenses);
         final Handler handler = new Handler();
         final Runnable updateSeekBar = new Runnable() {
             @Override
@@ -164,23 +181,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        months.setText(monthNames[currentMonth]);
 
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Budget",
-                        Integer.parseInt(income),
-                        Color.parseColor("#FFA726")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Spent",
-                        Integer.parseInt(expenses),
-                        Color.parseColor("#66BB6A")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Savings",
-                        Integer.parseInt(savings),
-                        Color.parseColor("#22A1E2")));
 
+        backward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar.add(Calendar.MONTH, -1);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+                currentMonth = calendar.get(Calendar.MONTH);
+                String[] monthNames = new DateFormatSymbols().getMonths();
+                months.setText(monthNames[currentMonth]);
+                String income = prefs.getString("Income","0").replace("₱", "");
+                String savings = prefs.getString(monthNames[currentMonth] + "_saving","0").replace("₱", "");
+                String expenses = String.valueOf(Integer.parseInt(income)-Integer.parseInt(savings));
+                addPieChart(income,savings,expenses);
+            }
+        });
+
+        forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar.add(Calendar.MONTH, 1);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+                currentMonth = calendar.get(Calendar.MONTH);
+                String[] monthNames = new DateFormatSymbols().getMonths();
+                months.setText(monthNames[currentMonth]);
+                selectedDate = monthNames[currentMonth];
+                String income = prefs.getString("Income","0").replace("₱", "");
+                String savings = prefs.getString(monthNames[currentMonth] + "_saving","0").replace("₱", "");
+                String expenses = String.valueOf(Integer.parseInt(income)-Integer.parseInt(savings));
+                addPieChart(income,savings,expenses);
+            }
+        });
 
         income_txt.setText("INCOME : " + income);
         expenses_txt.setText("EXPENSES : " + expenses);
@@ -287,5 +320,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Log.d("1", String.valueOf(id));
         //drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    void addPieChart(String income, String expenses, String savings){
+        pieChart.addPieSlice(
+                new PieModel(
+                        "Budget",
+                        Integer.parseInt(income),
+                        Color.parseColor("#FFA726")));
+        pieChart.addPieSlice(
+                new PieModel(
+                        "Spent",
+                        Integer.parseInt(expenses),
+                        Color.parseColor("#66BB6A")));
+        pieChart.addPieSlice(
+                new PieModel(
+                        "Savings",
+                        Integer.parseInt(savings),
+                        Color.parseColor("#22A1E2")));
     }
 }

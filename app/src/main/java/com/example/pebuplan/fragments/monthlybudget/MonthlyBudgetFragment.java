@@ -1,7 +1,5 @@
 package com.example.pebuplan.fragments.monthlybudget;
 
-import static com.facebook.appevents.UserDataStore.clear;
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,22 +21,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pebuplan.adapter.MonthlyBudgetAdapter;
 import com.example.pebuplan.model.BudgetModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -95,7 +89,7 @@ public class MonthlyBudgetFragment extends Fragment implements UpdateBudgetTable
         currentMonth = calendar.get(Calendar.MONTH);
 
         months = view.findViewById(R.id.timeline);
-        backward = view.findViewById(R.id.backward_image);
+        backward = view.findViewById(R.id.main_backward_image);
         forward = view.findViewById(R.id.forward_image);
         String[] monthNames = new DateFormatSymbols().getMonths();
         months.setText(monthNames[currentMonth]);

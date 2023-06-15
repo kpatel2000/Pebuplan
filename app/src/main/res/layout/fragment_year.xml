@@ -31,7 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
-                android:id="@+id/backward_image"
+                android:id="@+id/main_backward_image"
                 android:layout_width="24dp"
                 android:layout_height="31dp"
                 android:layout_marginEnd="10dp"
