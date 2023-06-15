@@ -160,7 +160,7 @@ public class DetailFragment extends Fragment implements DatePickerDialog.OnDateS
                         resmonth--;
                     }
                 }
-                if (resmonth<=0 && resyear<0) {
+                if (resmonth<=0 && resyear<=0) {
                     Toast.makeText(requireContext(), "Please select month greater than current month", Toast.LENGTH_LONG).show();
                 }
                 else {
