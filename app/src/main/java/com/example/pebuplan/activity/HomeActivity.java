@@ -408,7 +408,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    void addPieChart(String income, String expenses, String savings){
+    void addPieChart(String income, String savings, String expenses){
         pieChart.clearChart();
         pieChart.addPieSlice(
                 new PieModel(
