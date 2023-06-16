@@ -2,6 +2,7 @@ package com.example.pebuplan.fragments.tracker;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,12 @@ import com.example.pebuplan.R;
 import com.example.pebuplan.adapter.MonthlyBudgetAdapter;
 import com.example.pebuplan.model.BudgetModel;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,6 +51,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 
 public class TrackerExpensesFragment extends Fragment implements Update{
 
@@ -52,7 +60,7 @@ public class TrackerExpensesFragment extends Fragment implements Update{
     }
 
 
-    AnyChartView pieChartExpense;
+    PieChart pieChartExpense;
 
     RecyclerView tracker_rec_view;
     TrackerAdapter adapter;
@@ -67,7 +75,7 @@ public class TrackerExpensesFragment extends Fragment implements Update{
     int currentDay;
     Button save;
     String selectedDate;
-    List<DataEntry> dataEntries;
+    List<PieEntry> dataEntries;
     HashMap<String, ArrayList<BudgetModel>> hashMap = new HashMap<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -330,17 +338,48 @@ public class TrackerExpensesFragment extends Fragment implements Update{
                 pieChartExpense.clear();
             }
         }else{
+            pieChartExpense.invalidate();
             dataEntries = new ArrayList<>();
             for (int start=0;start<trackerArrayList.size();start++){
                 if (!trackerArrayList.get(start).getDaily().equals("")) {
                     int budget = Integer.parseInt(trackerArrayList.get(start).getDaily());
-                    dataEntries.add(new ValueDataEntry(trackerArrayList.get(start).getCategory(), budget));
+                    dataEntries.add(new PieEntry(budget,trackerArrayList.get(start).getCategory()));
                 }
             }
+
+            List<Integer> colors = new ArrayList<>();
+
+            Random random = new Random();
+            for (int i = 0; i < dataEntries.size(); i++) {
+                // Generate random RGB values
+                int r = random.nextInt(256);
+                int g = random.nextInt(256);
+                int b = random.nextInt(256);
+
+                // Create color using RGB values
+                int color = Color.rgb(r, g, b);
+                colors.add(color);
+            }
+
             if (dataEntries.size() != 0) {
-                Pie pieExpense = AnyChart.pie();
-                pieExpense.data(dataEntries);
-                pieChartExpense.setChart(pieExpense);
+                PieDataSet dataSet = new PieDataSet(dataEntries, "");
+                dataSet.setColors(colors);
+                PieData data = new PieData(dataSet);
+                data.setValueTextSize(6f); // Set text size for the slice values
+                pieChartExpense.setDrawSliceText(false);
+                pieChartExpense.setDrawEntryLabels(false);
+                pieChartExpense.getDescription().setEnabled(false); // Disable chart description
+                Legend l = pieChartExpense.getLegend();
+                l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+                l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+                l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+                l.setDrawInside(false);
+                l.setXEntrySpace(4f);
+                l.setYEntrySpace(0f);
+                l.setWordWrapEnabled(true);
+                pieChartExpense.setData(data);
+                pieChartExpense.getLegend().setEnabled(true);
+                pieChartExpense.invalidate();
             }
         }
     }
@@ -351,6 +390,7 @@ public class TrackerExpensesFragment extends Fragment implements Update{
         super.onViewCreated(view, savedInstanceState);
 
         pieChartExpense = view.findViewById(R.id.pieChartExpense);
+        pieChartExpense.invalidate();
         setPieChart(selectedDate);
     }
     private ArrayList<BudgetModel> getDayData(String selectedDate) {
