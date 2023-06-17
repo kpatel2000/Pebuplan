@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -97,8 +97,8 @@ public class TrackerExpensesFragment extends Fragment implements Update{
         trackerArrayList = getDayData(selectedDate);
         totalBudget = view.findViewById(R.id.budget_total_tracker);
         totalExpense = view.findViewById(R.id.expense_total_tracker);
-        Toolbar toolbar = view.findViewById(R.id.include2);
-        toolbar.setTitle("Expense Tracker");
+        TextView title = view.findViewById(R.id.title);
+        title.setText("Expense Tracker");
         save = view.findViewById(R.id.save_tracker);
         budget = view.findViewById(R.id.budget_et);
         expense = view.findViewById(R.id.expense_et);
@@ -344,9 +344,11 @@ public class TrackerExpensesFragment extends Fragment implements Update{
             pieChartExpense.invalidate();
             dataEntries = new ArrayList<>();
             for (int start=0;start<trackerArrayList.size();start++){
-                if (!trackerArrayList.get(start).getDaily().equals("")) {
-                    int budget = Integer.parseInt(trackerArrayList.get(start).getDaily());
-                    dataEntries.add(new PieEntry(budget,trackerArrayList.get(start).getCategory()));
+                if (trackerArrayList.get(start).getExpense() != null){
+                    if (!trackerArrayList.get(start).getExpense().equals("")) {
+                        int expense = Integer.parseInt(trackerArrayList.get(start).getExpense());
+                        dataEntries.add(new PieEntry(expense,trackerArrayList.get(start).getCategory()));
+                    }
                 }
             }
 
@@ -383,6 +385,8 @@ public class TrackerExpensesFragment extends Fragment implements Update{
                 pieChartExpense.setData(data);
                 pieChartExpense.getLegend().setEnabled(true);
                 pieChartExpense.invalidate();
+            }else{
+                pieChartExpense.clear();
             }
         }
     }
