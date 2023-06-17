@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -96,6 +97,8 @@ public class TrackerExpensesFragment extends Fragment implements Update{
         trackerArrayList = getDayData(selectedDate);
         totalBudget = view.findViewById(R.id.budget_total_tracker);
         totalExpense = view.findViewById(R.id.expense_total_tracker);
+        Toolbar toolbar = view.findViewById(R.id.include2);
+        toolbar.setTitle("Expense Tracker");
         save = view.findViewById(R.id.save_tracker);
         budget = view.findViewById(R.id.budget_et);
         expense = view.findViewById(R.id.expense_et);
