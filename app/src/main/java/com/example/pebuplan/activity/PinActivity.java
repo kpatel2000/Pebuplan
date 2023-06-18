@@ -44,10 +44,10 @@ public class PinActivity extends AppCompatActivity {
         pinShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count == 0){
+                if (count == 0) {
                     pincode.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     count = 1;
-                }else{
+                } else {
                     pincode.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     count = 0;
                 }
@@ -57,10 +57,10 @@ public class PinActivity extends AppCompatActivity {
         pinConfirmShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count2 == 0){
+                if (count2 == 0) {
                     pinconfirm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     count2 = 1;
-                }else{
+                } else {
                     pinconfirm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     count2 = 0;
                 }
@@ -70,23 +70,50 @@ public class PinActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pincode.getText().toString().equals(pinconfirm.getText().toString()) && !pincode.getText().toString().isEmpty()){
-                    if (!calledFrom.equals("ForgetPin")) {
-                        Intent intent = new Intent(PinActivity.this, SecurityQuestions.class);
-                        intent.putExtra("callFrom", "PinActivity");
-                        editor.putString("pincode", pincode.getText().toString());
-                        editor.apply();
-                        startActivity(intent);
-                        finish();
-                    }else{
-                        Intent intent = new Intent(PinActivity.this, PinConfirmActivity.class);
-                        editor.putString("pincode", pincode.getText().toString());
-                        editor.apply();
-                        startActivity(intent);
-                        finish();
+                switch (pincode.getText().toString()) {
+                    case "1234":
+                    case "1111":
+                    case "0000":
+                    case "1212":
+                    case "7777":
+                    case "1004":
+                    case "2000":
+                    case "4444":
+                    case "2222":
+                    case "6969":
+                    case "9999":
+                    case "3333":
+                    case "5555":
+                    case "6666":
+                    case "1122":
+                    case "1313":
+                    case "8888":
+                    case "4321":
+                    case "2001":
+                    case "1010":{
+                        Toast.makeText(PinActivity.this, "Weak Pin! Create a strong pin", Toast.LENGTH_SHORT).show();
+                        break;
                     }
-                }else{
-                    Toast.makeText(PinActivity.this, "Pin code doesn't match",Toast.LENGTH_SHORT).show();
+                    default: {
+                        if (pincode.getText().toString().equals(pinconfirm.getText().toString()) && !pincode.getText().toString().isEmpty()) {
+                            if (!calledFrom.equals("ForgetPin")) {
+                                Intent intent = new Intent(PinActivity.this, SecurityQuestions.class);
+                                intent.putExtra("callFrom", "PinActivity");
+                                editor.putString("pincode", pincode.getText().toString());
+                                editor.apply();
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Intent intent = new Intent(PinActivity.this, PinConfirmActivity.class);
+                                editor.putString("pincode", pincode.getText().toString());
+                                editor.apply();
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(PinActivity.this, "Pin code doesn't match", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         });
