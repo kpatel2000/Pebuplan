@@ -95,24 +95,28 @@ public class WeeklyBudget extends Fragment implements UpdateBudgetTable{
             select_view2.setVisibility(View.INVISIBLE);
             select_view3.setVisibility(View.INVISIBLE);
             select_view4.setVisibility(View.INVISIBLE);
+            selectedDate = "week1";
             weeklyBillArrayList = getWeekData("week1");
         }else if (day <= 14){
             select_view1.setVisibility(View.INVISIBLE);
             select_view2.setVisibility(View.VISIBLE);
             select_view3.setVisibility(View.INVISIBLE);
             select_view4.setVisibility(View.INVISIBLE);
+            selectedDate = "week2";
             weeklyBillArrayList = getWeekData("week2");
         }else if (day <= 21) {
             select_view1.setVisibility(View.INVISIBLE);
             select_view2.setVisibility(View.INVISIBLE);
             select_view3.setVisibility(View.VISIBLE);
             select_view4.setVisibility(View.INVISIBLE);
+            selectedDate = "week3";
             weeklyBillArrayList = getWeekData("week3");
         }else{
             select_view1.setVisibility(View.INVISIBLE);
             select_view2.setVisibility(View.INVISIBLE);
             select_view3.setVisibility(View.INVISIBLE);
             select_view4.setVisibility(View.VISIBLE);
+            selectedDate = "week4";
             weeklyBillArrayList = getWeekData("week4");
         }
 
@@ -502,7 +506,7 @@ public class WeeklyBudget extends Fragment implements UpdateBudgetTable{
         Calendar calendar = Calendar.getInstance();
         int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         int daily = Integer.parseInt(budgetModel.getDaily())/7;
-        BudgetModel newBudgetModel = new BudgetModel(budgetModel.getCategory(),budgetModel.getDaily(),String.valueOf(daily),String.valueOf(daily*lastDayOfMonth));
+        BudgetModel newBudgetModel = new BudgetModel(budgetModel.getCategory(),String.valueOf(daily),budgetModel.getDaily(),String.valueOf(daily*lastDayOfMonth));
         weeklyBillArrayList.add(newBudgetModel);
         adapter_week.update(weeklyBillArrayList);
     }
