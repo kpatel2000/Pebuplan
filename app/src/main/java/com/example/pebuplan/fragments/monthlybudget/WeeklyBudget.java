@@ -83,8 +83,39 @@ public class WeeklyBudget extends Fragment implements UpdateBudgetTable{
         Calendar calendar = Calendar.getInstance();
         currentYear = calendar.get(Calendar.YEAR);
         currentMonth = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DATE);
 
-        weeklyBillArrayList = getWeekData("week1");
+        select_view1 = view.findViewById(R.id.select_Week1);
+        select_view2 = view.findViewById(R.id.select_Week2);
+        select_view3 = view.findViewById(R.id.select_Week3);
+        select_view4 = view.findViewById(R.id.select_Week4);
+
+        if (day <= 7){
+            select_view1.setVisibility(View.VISIBLE);
+            select_view2.setVisibility(View.INVISIBLE);
+            select_view3.setVisibility(View.INVISIBLE);
+            select_view4.setVisibility(View.INVISIBLE);
+            weeklyBillArrayList = getWeekData("week1");
+        }else if (day <= 14){
+            select_view1.setVisibility(View.INVISIBLE);
+            select_view2.setVisibility(View.VISIBLE);
+            select_view3.setVisibility(View.INVISIBLE);
+            select_view4.setVisibility(View.INVISIBLE);
+            weeklyBillArrayList = getWeekData("week2");
+        }else if (day <= 21) {
+            select_view1.setVisibility(View.INVISIBLE);
+            select_view2.setVisibility(View.INVISIBLE);
+            select_view3.setVisibility(View.VISIBLE);
+            select_view4.setVisibility(View.INVISIBLE);
+            weeklyBillArrayList = getWeekData("week3");
+        }else{
+            select_view1.setVisibility(View.INVISIBLE);
+            select_view2.setVisibility(View.INVISIBLE);
+            select_view3.setVisibility(View.INVISIBLE);
+            select_view4.setVisibility(View.VISIBLE);
+            weeklyBillArrayList = getWeekData("week4");
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("MMMM");
         Date date = new Date();
 
@@ -150,11 +181,6 @@ public class WeeklyBudget extends Fragment implements UpdateBudgetTable{
         ll_week2 = view.findViewById(R.id.ll_week2);
         ll_week3 = view.findViewById(R.id.ll_week3);
         ll_week4 = view.findViewById(R.id.ll_week4);
-
-        select_view1 = view.findViewById(R.id.select_Week1);
-        select_view2 = view.findViewById(R.id.select_Week2);
-        select_view3 = view.findViewById(R.id.select_Week3);
-        select_view4 = view.findViewById(R.id.select_Week4);
 
         ll_week1.setOnClickListener(new View.OnClickListener() {
             @Override
