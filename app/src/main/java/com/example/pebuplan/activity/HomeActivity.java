@@ -171,15 +171,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         int savingsOfMonth = 0;
         if (!income.equals("0")){
-            String recordsJson = prefs.getString("home_records", "");
+            String recordsJson = prefs.getString("home_details_monthly_contribution", "");
             totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
-            recordsJson = prefs.getString("debt_records", "");
+            recordsJson = prefs.getString("debt_details_monthly_contribution", "");
             totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
-            recordsJson = prefs.getString("car_records", "");
+            recordsJson = prefs.getString("car_details_monthly_contribution", "");
             totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
-            recordsJson = prefs.getString("vacation_records", "");
+            recordsJson = prefs.getString("vacation_details_monthly_contribution", "");
             totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
-            recordsJson = prefs.getString("others_records", "");
+            recordsJson = prefs.getString("others_details_monthly_contribution", "");
             totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
 
             savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
@@ -368,14 +368,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private int addRecordToExpense(String recordsJson, int totalExpenseOfMonth) {
         if (!TextUtils.isEmpty(recordsJson)) {
-            Gson gson = new Gson();
-            Type type = new TypeToken<List<Record>>() {}.getType();
-            ArrayList<Record> records = gson.fromJson(recordsJson, type);
-            if (records != null && records.size() != 0){
-                for (int start=0;start<records.size();start++){
-                    totalExpenseOfMonth += Integer.parseInt(records.get(start).getRecord());
-                }
-            }
+            totalExpenseOfMonth += Integer.parseInt(recordsJson);
         }
         return totalExpenseOfMonth;
     }
