@@ -287,7 +287,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="SAVINGS : "/>
+                       android:text="REMAINING : "/>
 
                    <EditText
                        android:id="@+id/savings_et"

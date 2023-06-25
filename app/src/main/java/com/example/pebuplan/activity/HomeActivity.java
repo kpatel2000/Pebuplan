@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.pebuplan.R;
+import com.example.pebuplan.fragments.fgoal.Record;
 import com.example.pebuplan.model.BudgetModel;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -37,14 +39,19 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.onesignal.OneSignal;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -164,6 +171,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         int savingsOfMonth = 0;
         if (!income.equals("0")){
+            String recordsJson = prefs.getString("home_records", "");
+            totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+            recordsJson = prefs.getString("debt_records", "");
+            totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+            recordsJson = prefs.getString("car_records", "");
+            totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+            recordsJson = prefs.getString("vacation_records", "");
+            totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+            recordsJson = prefs.getString("others_records", "");
+            totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+
             savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
         }
 
@@ -346,6 +364,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+    }
+
+    private int addRecordToExpense(String recordsJson, int totalExpenseOfMonth) {
+        if (!TextUtils.isEmpty(recordsJson)) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Record>>() {}.getType();
+            ArrayList<Record> records = gson.fromJson(recordsJson, type);
+            if (records != null && records.size() != 0){
+                for (int start=0;start<records.size();start++){
+                    totalExpenseOfMonth += Integer.parseInt(records.get(start).getRecord());
+                }
+            }
+        }
+        return totalExpenseOfMonth;
     }
 
     @Override
