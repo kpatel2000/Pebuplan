@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,11 @@ import android.widget.TextView;
 
 import com.example.pebuplan.R;
 import com.example.pebuplan.activity.HomeActivity;
+import com.example.pebuplan.fragments.fgoal.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -105,7 +110,18 @@ public class SavingFragment extends Fragment {
            String income = sharedPref.getString(monthNames[i]+"_income","0");
            int savingsOfMonth = 0;
            if (!income.equals("0")){
-              savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
+               String recordsJson = sharedPref.getString("home_details_monthly_contribution", "");
+               totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+               recordsJson = sharedPref.getString("debt_details_monthly_contribution", "");
+               totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+               recordsJson = sharedPref.getString("car_details_monthly_contribution", "");
+               totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+               recordsJson = sharedPref.getString("vacation_details_monthly_contribution", "");
+               totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+               recordsJson = sharedPref.getString("others_details_monthly_contribution", "");
+               totalExpenseOfMonth = addRecordToExpense(recordsJson,totalExpenseOfMonth);
+
+               savingsOfMonth = Integer.parseInt(income)-totalExpenseOfMonth;
                dataList.add(new DataModel(
                        monthNames[i],
                        String.valueOf(days),
@@ -138,4 +154,11 @@ public class SavingFragment extends Fragment {
 
         return view;
     }
+    private int addRecordToExpense(String recordsJson, int totalExpenseOfMonth) {
+        if (!TextUtils.isEmpty(recordsJson)) {
+            totalExpenseOfMonth += Integer.parseInt(recordsJson);
+        }
+        return totalExpenseOfMonth;
+    }
+
 }
